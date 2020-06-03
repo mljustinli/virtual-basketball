@@ -58,7 +58,7 @@ var ball = new Basketball();
 var hoops = [];
 hoops.push(new Hoop());
 hoops.push(new Hoop());
-var PLAYER_SIZE = 2;
+var PLAYER_SIZE = 20;
 
 setInterval(function () {
   let playerPositions = {};
@@ -67,18 +67,22 @@ setInterval(function () {
   }
 
   for (let key in socketList) {
-    socketList[key].emit("update", playerPositions);
+    // Assume the background and the hoops are static and drawn automatically on player side
+    socketList[key].emit("updatePlayers", playerPositions);
+    socketList[key].emit("updateBall", ball);
   }
 
   // Collisions
   // Player vs. Player
-  for(player1 in playerPositions) {
-    for(player2 in playerPositions) {
-        if(player1 == player2) {
+  for(key1 in Object.keys(playerPositions)) {
+    for(key2 in Object.keys(playerPositions)) {
+        if(key1 == key2) {
           continue;
         }
         else {
-          if(collideCircleCircle(player1.pos.x, player1.pos.y, PLAYER_SIZE, player2.pos.x, player.pos.y, PLAYER_SIZE)) {
+          let player1 = playerPositions[key1];
+          let player2 = playerPositions[key2];
+          if(collideCircleCircle(player1.x, player1.y, PLAYER_SIZE, player2.x, player.y, PLAYER_SIZE)) {
               // Player should be blocked from moving
           }
         }
@@ -86,8 +90,9 @@ setInterval(function () {
   }
 
   // Player vs. Ball
-  for(player in playerPositions) {
-    if(collideCircleCircle(ball.x, ball.y, ball.size, player2.pos.x, player.pos.y, PLAYER_SIZE)) {
+  for(key in Object.keys(playerPositions)) {
+    let player = playerPositions[key];
+    if(collideCircleCircle(ball.x, ball.y, ball.size, player.x, player.y, PLAYER_SIZE)) {
       ball.caught(player);
     }
   }
