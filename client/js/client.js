@@ -4,6 +4,8 @@ let id;
 let playerPositions;
 let movingUp = false;
 let movingDown = false;
+let movingLeft = false;
+let movingRight = false;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -40,12 +42,19 @@ function draw() {
   }
 
   if (movingUp) {
-    socket.emit("updatePos", { id: id, delta: 4 });
+    socket.emit("updatePos", { id: id, delta: 4, alpha: 0 });
   }
   if (movingDown) {
-    socket.emit("updatePos", { id: id, delta: -4 });
+    socket.emit("updatePos", { id: id, delta: -4, alpha: 0 });
+  }
+  if (movingLeft) {
+    socket.emit("updatePos", { id: id, delta: 0, alpha: -4});
+  }
+  if (movingRight) {
+    socket.emit("updatePos", { id: id, delta: 0, alpha: 4});
   }
 }
+
 
 function keyPressed() {
   console.log(keyCode);
@@ -56,6 +65,12 @@ function keyPressed() {
   if (keyCode == 83) {
     movingDown = true;
   }
+  if (keyCode == 65) {
+    movingLeft = true;
+  }
+  if (keyCode == 68) {
+    movingRight = true;
+  }
 }
 
 function keyReleased() {
@@ -64,5 +79,11 @@ function keyReleased() {
   }
   if (keyCode == 83) {
     movingDown = false;
+  }
+  if (keyCode == 65) {
+    movingLeft = false;
+  }
+  if (keyCode == 68) {
+    movingRight = false;
   }
 }
