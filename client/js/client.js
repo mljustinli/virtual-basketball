@@ -25,17 +25,16 @@ socket.on("update", function (data) {
 /**
  * Game Stuff
  */
-;
-=======
 function setup() {
   let canvas = createCanvas(480, 640);
   canvas.parent("game-canvas-wrapper");
+  ellipseMode(CENTER);
 }
 
 function draw() {
   background(255);
   fill(0);
-<<<<<<< HEAD
+  drawBasketballCourt();
   if (playerPositions) {
     for (let key in playerPositions) {
       rect(playerPositions[key].x, playerPositions[key].y, 20, 20);
@@ -54,7 +53,7 @@ function draw() {
   if (movingRight) {
     socket.emit("updatePos", { id: id, delta: 0, alpha: 4});
   }
-  drawBasketballCourt();
+
 }
 
 
