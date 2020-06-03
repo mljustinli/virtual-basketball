@@ -37,21 +37,17 @@ io.on("connection", function (socket) {
     console.log("Received join message from client");
   });
 
-  socket.on("disconnect", function(){
+  socket.on("disconnect", function () {
     console.log("disconnected!");
-    delete(socket.pos);
-    delete(currSocket);
-    delete(socketList[currSocket]);
-    delete(socket.id);
-
-
-});
+    delete socket.pos;
+    delete currSocket;
+    delete socketList[currSocket];
+    delete socket.id;
+  });
   socket.on("updatePos", function (data) {
     // console.log("receiving updatepos message");
-    socketList[data.id].pos.y -= data.delta;
-    socketList[data.id].pos.x += data.alpha;
-    console.log(socketList[data.id].pos.y);
-    console.log(socketList[data.id].pos.x);
+    socketList[data.id].pos.y -= data.dx;
+    socketList[data.id].pos.x += data.dy;
   });
 
   socket.on("initials", function (data) {

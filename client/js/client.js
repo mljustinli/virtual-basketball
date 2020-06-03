@@ -18,7 +18,6 @@ socket.on("giveID", function (data) {
   console.log("Given id is: " + id);
 });
 socket.on("updatePlayers", function (data) {
-  console.log("receive update");
   playerPositions = data;
 });
 
@@ -43,20 +42,18 @@ function draw() {
   }
 
   if (movingUp) {
-    socket.emit("updatePos", { id: id, delta: 4, alpha: 0 });
+    socket.emit("updatePos", { id: id, dx: 4, dy: 0 });
   }
   if (movingDown) {
-    socket.emit("updatePos", { id: id, delta: -4, alpha: 0 });
+    socket.emit("updatePos", { id: id, dx: -4, dy: 0 });
   }
   if (movingLeft) {
-    socket.emit("updatePos", { id: id, delta: 0, alpha: -4});
+    socket.emit("updatePos", { id: id, dx: 0, dy: -4 });
   }
   if (movingRight) {
-    socket.emit("updatePos", { id: id, delta: 0, alpha: 4});
+    socket.emit("updatePos", { id: id, dx: 0, dy: 4 });
   }
-
 }
-
 
 function keyPressed() {
   console.log(keyCode);
