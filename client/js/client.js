@@ -17,7 +17,6 @@ socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
-
 socket.on("update", function (data) {
   console.log("receive update");
   playerPositions = data;
@@ -26,15 +25,17 @@ socket.on("update", function (data) {
 /**
  * Game Stuff
  */
-
+;
+=======
 function setup() {
-  createCanvas(480, 480);
-  ellipseMode(CENTER);
+  let canvas = createCanvas(480, 640);
+  canvas.parent("game-canvas-wrapper");
 }
 
 function draw() {
   background(255);
   fill(0);
+<<<<<<< HEAD
   if (playerPositions) {
     for (let key in playerPositions) {
       rect(playerPositions[key].x, playerPositions[key].y, 20, 20);
@@ -53,6 +54,7 @@ function draw() {
   if (movingRight) {
     socket.emit("updatePos", { id: id, delta: 0, alpha: 4});
   }
+  drawBasketballCourt();
 }
 
 
