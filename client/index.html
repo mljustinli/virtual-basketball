@@ -4,11 +4,24 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
   </head>
   <body>
-    <div id="game-canvas-wrapper"></div>
+    <div id="initials-input-wrapper">
+      <div id="input-title">Please input your initials.</div>
+      <input
+        type="text"
+        id="initials-input"
+        name="initials-input"
+        maxlength="2"
+        autofocus
+      />
+    </div>
+    <div id="game-canvas-wrapper" class="hidden"></div>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/js/p5.min.js"></script>
+    <script src="/js/clientFlags.js"></script>
     <script src="/js/clientConstants.js"></script>
     <script src="/js/background.js"></script>
     <script src="/js/client.js"></script>
+    <script src="/js/inputInitials.js"></script>
   </body>
 </html>

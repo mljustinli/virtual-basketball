@@ -9,6 +9,14 @@ html {
   justify-content: center;
 }
 
+#initials-input-wrapper {
+  padding-top: 4rem;
+}
+
 #game-canvas-wrapper {
   padding-top: 4rem;
+}
+
+.hidden {
+  display: none;
 }
