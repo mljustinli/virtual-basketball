@@ -5,8 +5,10 @@ socket.on("connect", function (data) {
 });
 
 function setup() {
-  let canvas = createCanvas(480, 640);
+  let canvas = createCanvas(WIDTH, HEIGHT);
   canvas.parent("game-canvas-wrapper");
+
+  ellipseMode(CENTER);
 }
 
 function draw() {
@@ -21,5 +23,3 @@ function keyPressed() {
 }
 
 function keyReleased() {}
-
-function drawBasketballCourt() {}
