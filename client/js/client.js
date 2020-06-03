@@ -17,7 +17,7 @@ socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
-socket.on("update", function (data) {
+socket.on("updatePlayers", function (data) {
   console.log("receive update");
   playerPositions = data;
 });
