@@ -24,25 +24,34 @@ let currSocket;
 
 io.on("connection", function (socket) {
   socket.id = idTracker;
-  idTracker++;
   socketList[socket.id] = socket;
   currSocket = socket;
   socket.emit("giveID", socket.id);
   socket.pos = { x: 0, y: 240 };
-  log("Client connected...");
-  log("Client id is: " + socket.id);
-  log("IP address is: " + socket.request.connection.remoteAddress);
+  idTracker++;
+  console.log("Client connected...");
+  console.log("Client id is: " + socket.id);
+  console.log("IP address is: " + socket.request.connection.remoteAddress);
 
-  socket.on("updateY", function (data) {
-    // console.log("receiving updatepos message");
-    socketList[data.id].pos.y -= data.delta;
-    log(socketList[data.id].pos.y);
+  socket.on("join", function (data) {
+    console.log("Received join message from client");
   });
 
-  socket.on("updateX", function (data) {
+  socket.on("disconnect", function(){
+    console.log("disconnected!");
+    delete(socket.pos);
+    delete(currSocket);
+    delete(socketList[currSocket]);
+    delete(socket.id);
+
+
+});
+  socket.on("updatePos", function (data) {
     // console.log("receiving updatepos message");
-    socketList[data.id].pos.x -= data.delta;
-    log(socketList[data.id].pos.x);
+    socketList[data.id].pos.y -= data.delta;
+    socketList[data.id].pos.x += data.alpha;
+    console.log(socketList[data.id].pos.y);
+    console.log(socketList[data.id].pos.x);
   });
 
   socket.on("initials", function (data) {
