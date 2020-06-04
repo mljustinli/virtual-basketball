@@ -73,16 +73,17 @@ class Game {
       }
     }
 
-    // Player vs. Ball
-    for (let key of this.getPlayers()) {
-      let player = this.players[key];
-      if (
-        this.ball.collidable.collides(player.collidable) &&
-        (!this.ball.player || this.ball.player.id != player.id)
-      ) {
-        this.ball.caught(player);
-      }
-    }
+    // // Player vs. Ball
+    // for (let key of this.getPlayers()) {
+    //   let player = this.players[key];
+    //   // auto catch code
+    //   if (
+    //     this.ball.collidable.collides(player.collidable) &&
+    //     (!this.ball.player || this.ball.player.id != player.id)
+    //   ) {
+    //     this.ball.caught(player);
+    //   }
+    // }
 
     // Ball vs. Hoop
     for (let hoop of this.hoops) {
@@ -94,6 +95,22 @@ class Game {
         }
       }
     }
+  }
+
+  // only should be called when someone attempts to catch
+  // returns true if caught
+  catchEventChecker(player) {
+    if (this.ball.collidable.collides(player.collidable)) {
+      // no one in possession
+      if (!this.ball.player) {
+        this.ball.caught(player);
+        return true;
+      }
+      else if (this.ball.player.id != player.id){
+        //need to handle, ignoring for now
+      }
+    }
+    return false;
   }
 
   update() {
