@@ -65,9 +65,18 @@ io.on("connection", function (socket) {
     console.log("Received player initials: " + socket.initials);
   });
 
-  socket.on("autowin", function () {
-    games[socket.gameID].autoWin();
-  });
+  socket.on("restartGame", function (id) {
+    let key;
+    for (key of Object.keys(games)) {
+      let g = games[key];
+      let p;
+      for (p of g.getPlayers()) {
+        if (p.id == id) {
+          g.restart();
+        }
+      }
+    }
+  })
 });
 
 setInterval(function () {
@@ -96,9 +105,9 @@ setInterval(function () {
       if (currScore['Team 2'] >= 11) {
         winner = 'Team 2';
       }
-      let p;
-      for (p of game.getPlayers()) {
-        socketList[player].emit("winReceiver", winner);
+      let s;
+      for (s of game.getPlayers()) {
+        socketList[s].emit("winReceiver", winner);
       }
     }
   }

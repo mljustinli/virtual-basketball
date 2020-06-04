@@ -108,10 +108,6 @@ class Game {
   }
 
 
-  checkScore() {
-    return
-  }
-
   draw() {
     let objs = [];
     objs.push(this.ball.draw());
@@ -123,6 +119,10 @@ class Game {
 
   // Close out this instance
   close() {}
+
+  restart() {
+    this.score = { "Team 1": 0, "Team 2": 0 };
+  }
 
   playerPositions() {
     let positions = {};

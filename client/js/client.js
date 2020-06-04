@@ -14,6 +14,8 @@ let playerPosY = 0;
 let team1Score = 0;
 let team2Score = 0;
 let toDraw = {};
+let gameOver = false;
+let winner;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -88,6 +90,9 @@ function draw() {
   drawStaminaBar();
   drawScore();
   handleMovement();
+  if (gameOver) {
+    this.drawWin();
+  }
 }
 
 function drawStaminaBar() {
@@ -99,10 +104,6 @@ function drawStaminaBar() {
   noStroke();
   fill(255);
   rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
-}
-
-function drawRestart(color) {
-
 }
 
 function handleMovement() {
@@ -167,6 +168,12 @@ function drawScore() {
   text("Blue: " + team2Score, 350, 30);
 }
 
+function drawWin() {
+  textSize(32);
+  fill(0, 102, 0);
+  text("The " + winner + " team is the winner!", 44, 120);
+  text("Press R to restart", 100, 360);
+}
 
 
 function keyPressed() {
@@ -187,8 +194,13 @@ function keyPressed() {
     playerSpeed = PLAYER_FAST_SPEED;
   }
   if (keyCode == 75) {
-    this.restarter('red');
+    this.restarter('blue');
     //socket.emit("autowin");
+  }
+  if (keyCode == 82 && gameOver) {
+    gameOver = false;
+    socket.emit("restartGame", this.id);
+    this.draw();
   }
 }
 
@@ -214,5 +226,6 @@ function keyReleased() {
 
 function restarter(color) {
   console.log("im happening!");
-  $("#winner-screen").removeClass("hidden");
+  gameOver = true;
+  winner = color;
 }
