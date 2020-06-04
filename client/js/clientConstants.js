@@ -10,17 +10,29 @@ const PLAYER_SIZE = CENTER_CIRCLE_RADIUS;
 const PLAYER_SPEED = 2;
 const PLAYER_FAST_SPEED = 4;
 const MAX_STAMINA = 60;
-const BASKETBALL_STARTING_POSITION = {x: 240, y: 320};
+const BASKETBALL_STARTING_POSITION = { x: 240, y: 320 };
 const BASKETBALL_SIZE = 20;
-const TEAM_1 = {id: 1, rgb: {r: 0, g: 0, b:0}, name: 'Team 1', startingPosition: {x: 0, y: 0}, hoopPosition: {x: 0, y: 0}};
-const TEAM_2 = {id: 2, rgb: {r: 0, g: 0, b:0}, name: 'Team 2', startingPosition: {x: 0, y: 0}, hoopPosition: {x: 0, y: 0}};
-
+const ANGLE_INDICATOR_LENGTH = 20;
+const TEAM_1 = {
+  id: 1,
+  rgb: { r: 0, g: 0, b: 0 },
+  name: "Team 1",
+  startingPosition: { x: 0, y: 0 },
+  hoopPosition: { x: 0, y: 0 },
+};
+const TEAM_2 = {
+  id: 2,
+  rgb: { r: 0, g: 0, b: 0 },
+  name: "Team 2",
+  startingPosition: { x: 0, y: 0 },
+  hoopPosition: { x: 0, y: 0 },
+};
 
 function define(name, value) {
-    Object.defineProperty(exports, name, {
-        value:      value,
-        enumerable: true
-    });
+  Object.defineProperty(exports, name, {
+    value: value,
+    enumerable: true,
+  });
 }
 
 define("WIDTH", WIDTH);

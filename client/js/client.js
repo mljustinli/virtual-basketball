@@ -11,8 +11,9 @@ let holdingShift = false;
 let stamina = MAX_STAMINA;
 let playerPosX = 0;
 let playerPosY = 0;
-let redScore = 0;
-let blueScore = 0;
+let team1Score = 0;
+let team2Score = 0;
+let toDraw = {};
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -24,15 +25,9 @@ socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
-socket.on("updatePlayers", function (data) {
-  playerPositions = data;
-});
-socket.on("updateAngles", function (data) {
-  playerAngles = data;
-});
 socket.on("updateScore", function (data) {
-  redScore = data.redScore;
-  blueScore = data.blueScore;
+  team1Score = data.team1Score;
+  team2Score = data.team2Score;
 });
 
 socket.on("drawData", function (data) {
@@ -52,54 +47,71 @@ function draw() {
 
   noStroke();
   for (let key of Object.keys(toDraw)) {
-      let obj = toDraw[key];
-      fill(obj.fillColor.r, obj.fillColor.g, obj.fillColor.b);
-      circle(obj.pos.x, obj.pos.y, obj.size);
+    let obj = toDraw[key];
+    fill(obj.fillColor.r, obj.fillColor.g, obj.fillColor.b);
+    circle(obj.pos.x, obj.pos.y, obj.size);
+
+    if (obj.id == id) {
+      playerPosX = obj.pos.x;
+      playerPosY = obj.pos.y;
+      let offset = createVector(mouseX - playerPosX, mouseY - playerPosY);
+      let angle = atan2(offset.y, offset.x);
+      drawAngleIndicator(createVector(playerPosX, playerPosY), angle);
+      // also update the server with offset
+      socket.emit("updateAngle", { id: id, angle: angle });
+    }
+
+    if (obj.id != -1) {
+      // draw arrow thing
+    }
   }
-  drawPlayers();
+  // drawPlayers();
   drawStaminaBar();
   drawScore();
   handleMovement();
 }
 
-function drawPlayers() {
-  if (playerPositions) {
-    for (let key in playerPositions) {
-      if (key == id) {
-        playerPosX = playerPositions[key].x;
-        playerPosY = playerPositions[key].y;
-        let offset = createVector(mouseX - playerPosX, mouseY - playerPosY);
-        let angle = atan2(offset.y, offset.x);
-        drawAngleIndicator(
-          createVector(playerPositions[key].x, playerPositions[key].y),
-          angle
-        );
-        // also update the server with offset
-        socket.emit("updateAngle", { id: id, angle: angle });
-      } else {
-        let angle = playerAngles[key];
-        if (angle) {
-          drawAngleIndicator(
-            createVector(playerPositions[key].x, playerPositions[key].y),
-            angle
-          );
-        }
-      }
-      fill(30, 96, 189);
-      ellipse(playerPositions[key].x, playerPositions[key].y, 20, 20);
-    }
-  }
-}
+// function drawPlayers() {
+//   if (playerPositions) {
+//     for (let key in playerPositions) {
+//       if (key == id) {
+//         playerPosX = playerPositions[key].x;
+//         playerPosY = playerPositions[key].y;
+//         let offset = createVector(mouseX - playerPosX, mouseY - playerPosY);
+//         let angle = atan2(offset.y, offset.x);
+//         drawAngleIndicator(
+//           createVector(playerPositions[key].x, playerPositions[key].y),
+//           angle
+//         );
+//         // also update the server with offset
+//         socket.emit("updateAngle", { id: id, angle: angle });
+//       } else {
+//         let angle = playerAngles[key];
+//         if (angle) {
+//           drawAngleIndicator(
+//             createVector(playerPositions[key].x, playerPositions[key].y),
+//             angle
+//           );
+//         }
+//       }
+//       fill(30, 96, 189);
+//       ellipse(playerPositions[key].x, playerPositions[key].y, 20, 20);
+//     }
+//   }
+// }
 
+function drawStaminaBar() {
   // draw stamina bar
   stroke(255);
-  fill(230, 165, 46)
+  fill(230, 165, 46);
   strokeWeight(3);
   rect(20, height - 50, 80, 20);
   noStroke();
   fill(255);
   rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
+}
 
+function handleMovement() {
   if (movingUp) {
     socket.emit("updatePos", { id: id, dx: 0, dy: -playerSpeed });
   }
@@ -113,7 +125,7 @@ function drawPlayers() {
     socket.emit("updatePos", { id: id, dx: playerSpeed, dy: 0 });
   }
   if (holdingShift && (movingUp || movingDown || movingLeft || movingRight)) {
-    stamina-=2;
+    stamina -= 2;
     if (stamina <= 0) {
       playerSpeed = PLAYER_SPEED;
       stamina = 0;
@@ -123,17 +135,6 @@ function drawPlayers() {
       stamina++;
     }
   }
-}
-
-function drawStaminaBar() {
-  // draw stamina bar
-  stroke(255);
-  fill(230, 165, 46);
-  strokeWeight(3);
-  rect(20, height - 50, 80, 20);
-  noStroke();
-  fill(255);
-  rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
 }
 
 function drawAngleIndicator(pos, angle) {
@@ -168,8 +169,8 @@ function drawAngleIndicator(pos, angle) {
 
 function drawScore() {
   textSize(32);
-  text("Red: " + redScore, 5, 30);
-  text("Blue: " + blueScore, 350, 30);
+  text("Red: " + team1Score, 5, 30);
+  text("Blue: " + team2Score, 350, 30);
 }
 
 function keyPressed() {
