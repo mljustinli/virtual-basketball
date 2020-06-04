@@ -14,6 +14,7 @@ let playerPosY = 0;
 let team1Score = 0;
 let team2Score = 0;
 let toDraw = {};
+let throwBall = false;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -84,6 +85,10 @@ function draw() {
   drawStaminaBar();
   drawScore();
   handleMovement();
+  if (throwBall) {
+    socket.emit("throwBall", {id: id});
+    throwBall = false;
+  }
 }
 
 function drawStaminaBar() {
@@ -194,5 +199,11 @@ function keyReleased() {
   if (keyCode == 16) {
     holdingShift = false;
     playerSpeed = PLAYER_SPEED;
+  }
+}
+
+function mouseClicked() {
+  if(mouseButton == LEFT){
+    throwBall = true;
   }
 }

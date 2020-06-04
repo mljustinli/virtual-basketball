@@ -85,14 +85,11 @@ class Basketball {
     };
   }
 
-  throw(MouseX, MouseY, Power) {
+  throw(angle, Power) {
     this.player = null;
     // New - Old
-    let deltaX = MouseX - this.pos.x;
-    let deltaY = MouseY - this.pos.y;
-    let magnitude = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-    this.vector_x = Math.floor(deltaX / magnitude) * Power;
-    this.vector_y = Math.floor(deltaY / magnitude) * Power;
+    this.vector_x = Math.cos(angle) * Power;
+    this.vector_y = Math.sin(angle) * Power;
   }
 }
 

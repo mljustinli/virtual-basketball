@@ -64,6 +64,15 @@ io.on("connection", function (socket) {
     socket.initials = data;
     console.log("Received player initials: " + socket.initials);
   });
+
+  socket.on("throwBall", function (data) {
+    currGame = games[socket.gameID];
+    plyr = currGame.ball.player;
+    //make sure the player trying to throw the ball is actually in possession
+    if((plyr!=null)&&(plyr.id == data.id) {
+      currGame.ball.throw(plyr.angle, 10);
+    }
+  });
 });
 
 setInterval(function () {
