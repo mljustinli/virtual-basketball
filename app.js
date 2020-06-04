@@ -3,9 +3,7 @@ var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
-<<<<<<< HEAD
 var Game = require("./Client/js/Game.js");
-=======
 // var Basketball = require("./basketball");
 //var Game = require("./game");
 
@@ -15,7 +13,6 @@ function log(str) {
     console.log(str);
   }
 }
->>>>>>> rooms
 
 app.use(express.static(__dirname + "/client"));
 app.get("/", function (req, res, next) {
@@ -58,17 +55,9 @@ io.on("connection", function (socket) {
   });
 
   socket.on("updatePos", function (data) {
-<<<<<<< HEAD
     games[socket.gameID].updatePlayer(data.id, data.dx, data.dy);
-=======
-<<<<<<< HEAD
      console.log("receiving updatepos message");
     // game.movePlayer(data)
-    socketList[data.id].pos.y -= data.delta;
-    socketList[data.id].pos.x += data.alpha;
-    console.log(socketList[data.id].pos.y);
-    console.log(socketList[data.id].pos.x);
-=======
     // console.log("receiving updatepos message");
     socketList[data.id].pos.y -= data.dx;
     socketList[data.id].pos.x += data.dy;
@@ -77,8 +66,6 @@ io.on("connection", function (socket) {
     // TODO update player angle in a player object, but for now
     // it's with a socket
     socketList[data.id].angle = data.angle;
->>>>>>> master
->>>>>>> rooms
   });
 
   socket.on("initials", function (data) {
@@ -89,7 +76,6 @@ io.on("connection", function (socket) {
 });
 
 setInterval(function () {
-<<<<<<< HEAD
   let key;
   for(key of Object.keys(games)) {
     game = games[key];
@@ -100,23 +86,19 @@ setInterval(function () {
     for(player of game.getPlayers()) {
       socketList[player].emit("drawData", newData);
     }
-=======
   let playerPositions = {};
   let playerAngles = {};
   for (let key in socketList) {
     playerPositions[key] = socketList[key].pos;
     playerAngles[key] = socketList[key].angle;
-  }
 
-  for (let key in socketList) {
     // Assume the background and the hoops are static and drawn automatically on player side
     socketList[key].emit("updatePlayers", playerPositions);
     socketList[key].emit("updateAngles", playerAngles);
     // TODO actually emit the score
     socketList[key].emit("updateScore", { redScore: 0, blueScore: 0 });
     // socketList[key].emit("updateBall", ball);
->>>>>>> master
   }
-}, 1000 / 30);
+}1000 / 30});
 
 server.listen(process.env.PORT || 3000);
