@@ -70,17 +70,24 @@ io.on("connection", function (socket) {
     // console.log("Team choice is " + teamChoice);
   });
 
-  socket.on("leftMouseClick", function (data) {
+  // doesn't really do anything useful yet
+  socket.on("leftMousePress", function (data) {
+    if (games[socket.gameID].ball.player!=null) {
+      console.log("player " + data.id + " attempting to throw ball");
+    }
+  });
+
+  socket.on("leftMouseRelease", function (data) {
     currGame = games[socket.gameID];
     player = currGame.players[data.id];
     baller = currGame.ball.player;
-    // interpret left click as attempt to catch
+    // interpret left release as attempt to catch
     if (baller==null) {
-      currGame.catchEventChecker(player);
+      isCaught = currGame.catchEventChecker(player);
     }
-    // if player in possession throw ball on left click
+    // if player in possession throw ball on left keyReleased
     else if (baller.id == data.id) {
-      currGame.ball.throw(baller.angle, 0.5);
+      currGame.ball.throw(baller.angle, data.pow);
     }
   });
 });

@@ -14,7 +14,9 @@ let playerPosY = 0;
 let team1Score = 0;
 let team2Score = 0;
 let toDraw = {};
-let leftMouseClicked = false;
+var timePressed = null;
+let leftMousePressed = false;
+let leftMouseReleased = false;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -101,9 +103,15 @@ function drawPlayers() {
   drawStaminaBar();
   drawScore();
   handleMovement();
-  if (leftMouseClicked) {
-    socket.emit("leftMouseClick", {id: id});
-    leftMouseClicked = false;
+  if (leftMousePressed) {
+    socket.emit("leftMousePress", {id: id});
+    leftMousePressed = false;
+  }
+
+  if (leftMouseReleased) {
+    socket.emit("leftMouseRelease", {id: id, pow: timePressed/1000});
+    leftMouseReleased = false;
+    timePressed = null;
   }
 }
 
@@ -218,8 +226,16 @@ function keyReleased() {
   }
 }
 
-function mouseClicked() {
-  if(mouseButton === LEFT){
-    leftMouseClicked = true;
+function mousePressed() {
+  if (mouseButton === LEFT) {
+    leftMousePressed = true;
+    timePressed = Date.now();
+  }
+}
+
+function mouseReleased() {
+  if (mouseButton === LEFT) {
+    leftMouseReleased = true;
+    timePressed = Date.now() - timePressed;
   }
 }

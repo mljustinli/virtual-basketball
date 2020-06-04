@@ -98,16 +98,19 @@ class Game {
   }
 
   // only should be called when someone attempts to catch
+  // returns true if caught
   catchEventChecker(player) {
     if (this.ball.collidable.collides(player.collidable)) {
       // no one in possession
       if (!this.ball.player) {
         this.ball.caught(player);
+        return true;
       }
       else if (this.ball.player.id != player.id){
         //need to handle, ignoring for now
       }
     }
+    return false;
   }
 
   update() {
