@@ -3,6 +3,10 @@ var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
+<<<<<<< HEAD
+=======
+var Game = require("./js/Game");
+>>>>>>> master
 // var Basketball = require("./basketball");
 //var Game = require("./game");
 
@@ -18,12 +22,17 @@ app.get("/", function (req, res, next) {
   res.sendFile(__dirname + "/client/index.html");
 });
 
-let idTracker = 0;
+let idTracker = 1;
 
 //var game = new Game(1);
 
 let socketList = {};
+<<<<<<< HEAD
 let currSocket;
+=======
+var games = {};
+games[1] = new Game();
+>>>>>>> master
 
 io.on("connection", function (socket) {
   var player = {};
@@ -31,7 +40,6 @@ io.on("connection", function (socket) {
   player.id = idTracker;
   //game.prototype.addPlayer(player);
 
-  socket.pos = { x : 0, y : 240};
   socket.id = idTracker;
   socketList[socket.id] = socket;
   currSocket = socket;
@@ -55,12 +63,19 @@ io.on("connection", function (socket) {
 
 });
   socket.on("updatePos", function (data) {
+<<<<<<< HEAD
      console.log("receiving updatepos message");
     // game.movePlayer(data)
     socketList[data.id].pos.y -= data.delta;
     socketList[data.id].pos.x += data.alpha;
     console.log(socketList[data.id].pos.y);
     console.log(socketList[data.id].pos.x);
+=======
+    games[socket.gameID].updatePlayer(data.id, data.dx, data.dy);
+  });
+  socket.on("updateAngle", function (data) {
+    games[socket.gameID].updatePlayerAngle(data.id, data.angle);
+>>>>>>> master
   });
 
   socket.on("initials", function (data) {
@@ -82,6 +97,7 @@ var hoops = [];
 var PLAYER_SIZE = 20;
 
 setInterval(function () {
+<<<<<<< HEAD
   let playerPositions = {};
   for (let key in socketList) {
     playerPositions[key] = socketList[key].pos;
@@ -153,5 +169,24 @@ setInterval(function () {
   //   }
   // }
 }, 1000 / 30);
+=======
+  let key;
+  for (key of Object.keys(games)) {
+    game = games[key];
+    game.update();
+    // Emit update to players
+    let newData = game.draw();
+    let player;
+    for (player of game.getPlayers()) {
+      socketList[player].emit("drawData", newData);
+      socketList[player].emit("updateScore", {
+        team1Score: game.score["Team 1"],
+        team2Score: game.score["Team 2"],
+      });
+    }
+  }
+  1000 / 30;
+});
+>>>>>>> master
 
 server.listen(process.env.PORT || 3000);
