@@ -2,10 +2,13 @@ var socket = io();
 
 let id;
 let playerPositions;
+let playerSpeed = PLAYER_SPEED;
 let movingUp = false;
 let movingDown = false;
 let movingLeft = false;
 let movingRight = false;
+let holdingShift = false;
+let stamina = MAX_STAMINA;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -32,26 +35,47 @@ function setup() {
 }
 
 function draw() {
-  background(255);
-  fill(0);
   drawBasketballCourt();
+
+  noStroke();
+  fill(30, 96, 189);
   if (playerPositions) {
     for (let key in playerPositions) {
-      rect(playerPositions[key].x, playerPositions[key].y, 20, 20);
+      ellipse(playerPositions[key].x, playerPositions[key].y, 20, 20);
     }
   }
 
+  // draw stamina bar
+  stroke(255);
+  fill(230, 165, 46)
+  strokeWeight(3);
+  rect(20, height - 50, 80, 20);
+  noStroke();
+  fill(255);
+  rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
+
   if (movingUp) {
-    socket.emit("updatePos", { id: id, dx: 4, dy: 0 });
+    socket.emit("updatePos", { id: id, dx: playerSpeed, dy: 0 });
   }
   if (movingDown) {
-    socket.emit("updatePos", { id: id, dx: -4, dy: 0 });
+    socket.emit("updatePos", { id: id, dx: -playerSpeed, dy: 0 });
   }
   if (movingLeft) {
-    socket.emit("updatePos", { id: id, dx: 0, dy: -4 });
+    socket.emit("updatePos", { id: id, dx: 0, dy: -playerSpeed });
   }
   if (movingRight) {
-    socket.emit("updatePos", { id: id, dx: 0, dy: 4 });
+    socket.emit("updatePos", { id: id, dx: 0, dy: playerSpeed });
+  }
+  if (holdingShift && (movingUp || movingDown || movingLeft || movingRight)) {
+    stamina--;
+    if (stamina <= 0) {
+      playerSpeed = PLAYER_SPEED;
+      stamina = 0;
+    }
+  } else {
+    if (stamina < MAX_STAMINA) {
+      stamina++;
+    }
   }
 }
 
@@ -70,6 +94,10 @@ function keyPressed() {
   if (keyCode == 68) {
     movingRight = true;
   }
+  if (keyCode == 16) {
+    holdingShift = true;
+    playerSpeed = PLAYER_FAST_SPEED;
+  }
 }
 
 function keyReleased() {
@@ -84,5 +112,9 @@ function keyReleased() {
   }
   if (keyCode == 68) {
     movingRight = false;
+  }
+  if (keyCode == 16) {
+    holdingShift = false;
+    playerSpeed = PLAYER_SPEED;
   }
 }
