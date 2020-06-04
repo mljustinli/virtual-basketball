@@ -22,7 +22,6 @@ let winner;
 
 socket.on("connect", function (data) {
   socket.emit("join");
-
   console.log("Whoooo we connected");
 });
 
@@ -138,6 +137,10 @@ function drawPlayers() {
       text(obj.initials, obj.pos.x - 10, obj.pos.y - 20);
     }
   }
+  // drawPlayers();
+  drawStaminaBar();
+  drawScore();
+  handleMovement();
 }
 
 
@@ -296,4 +299,11 @@ function mousePressed() {
 
 function mouseReleased() {
   holdingThrow = false;
+  if (hasBall) {
+    socket.emit("throw", {id: id, pow: throwPower/5});
+  }
+  // attempt to catch
+  else {
+    socket.emit("catch", {id: id});
+  }
 }

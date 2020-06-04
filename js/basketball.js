@@ -6,7 +6,7 @@ class Basketball {
     this.size = CONSTANTS.BASKETBALL_SIZE;
     this.vector_x = 0;
     this.vector_y = 0;
-    this.acceleration_factor = 0.9;
+    this.acceleration_factor = 0.98;
     // 0: none, 1: team 1, 2: team 2
     this.team = 0;
     this.player = null;
@@ -67,7 +67,7 @@ class Basketball {
     //   this.vector_y = 0;
     // }
 
-    if (this.team == 0 || this.team == player.team.id) {
+    if (this.player == null) {
       this.player = player;
       this.team = player.team.id;
       this.vector_x = 0;
@@ -86,14 +86,11 @@ class Basketball {
     };
   }
 
-  throw(MouseX, MouseY, Power) {
+  throw(angle, Power) {
     this.player = null;
     // New - Old
-    let deltaX = MouseX - this.pos.x;
-    let deltaY = MouseY - this.pos.y;
-    let magnitude = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-    this.vector_x = Math.floor(deltaX / magnitude) * Power;
-    this.vector_y = Math.floor(deltaY / magnitude) * Power;
+    this.vector_x = Math.cos(angle) * Power;
+    this.vector_y = Math.sin(angle) * Power;
   }
 }
 
