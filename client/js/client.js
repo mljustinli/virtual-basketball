@@ -17,6 +17,8 @@ let playerPosY = 0;
 let team1Score = 0;
 let team2Score = 0;
 let toDraw = {};
+let gameOver = false;
+let winner;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -27,6 +29,12 @@ socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
+socket.on("updatePlayers", function (data) {
+  playerPositions = data;
+});
+socket.on("updateAngles", function (data) {
+  playerAngles = data;
+});
 socket.on("updateScore", function (data) {
   team1Score = data.team1Score;
   team2Score = data.team2Score;
@@ -34,6 +42,10 @@ socket.on("updateScore", function (data) {
 
 socket.on("drawData", function (data) {
   toDraw = data;
+});
+
+socket.on("winReceiver", function (team) {
+  this.restarter(team);
 });
 /**
  * Game Stuff
@@ -52,6 +64,9 @@ function draw() {
   drawStaminaBar();
   drawScore();
   handleMovement();
+  if (gameOver) {
+    this.drawWin();
+  }
 }
 
 function updateAngleIndicator() {
@@ -167,6 +182,17 @@ function handleMovement() {
   }
 }
 
+function drawStaminaBar() {
+  // draw stamina bar
+  stroke(255);
+  fill(230, 165, 46);
+  strokeWeight(3);
+  rect(20, height - 50, 80, 20);
+  noStroke();
+  fill(255);
+  rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
+}
+
 function drawAngleIndicator(pos, angle, throwPower) {
   let offset = createVector(
     (ANGLE_INDICATOR_LENGTH + throwPower) * cos(angle),
@@ -218,6 +244,13 @@ function drawScore() {
   text("Blue: " + team2Score, 350, 30);
 }
 
+function drawWin() {
+  textSize(32);
+  fill(0, 102, 0);
+  text("The " + winner + " team is the winner!", 44, 120);
+  text("Press R to restart", 100, 360);
+}
+
 function keyPressed() {
   if (keyCode == 87) {
     movingUp = true;
@@ -234,6 +267,15 @@ function keyPressed() {
   if (keyCode == 16) {
     holdingShift = true;
     playerSpeed = PLAYER_FAST_SPEED;
+  }
+  if (keyCode == 75) {
+    this.restarter("blue");
+    //socket.emit("autowin");
+  }
+  if (keyCode == 82 && gameOver) {
+    gameOver = false;
+    socket.emit("restartGame", this.id);
+    this.draw();
   }
 }
 
@@ -254,6 +296,12 @@ function keyReleased() {
     holdingShift = false;
     playerSpeed = PLAYER_SPEED;
   }
+}
+
+function restarter(color) {
+  console.log("im happening!");
+  gameOver = true;
+  winner = color;
 }
 
 function mousePressed() {

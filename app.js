@@ -31,23 +31,27 @@ io.on("connection", function (socket) {
 
   socket.id = idTracker;
   socketList[socket.id] = socket;
+  currSocket = socket;
   socket.emit("giveID", socket.id);
   idTracker++;
   socket.gameID = 1;
-  games[socket.gameID].connect(socket.id, socket.initials);
+  socket.team = "red";
+  games[socket.gameID].connect(socket.id, socket.initials, socket.team);
   console.log("Client connected...");
   console.log("Client id is: " + socket.id);
   console.log("IP address is: " + socket.request.connection.remoteAddress);
 
-  socket.on("disconnect", function () {
-    console.log("disconnected!");
-    games[socket.gameID].disconnect(socket.id);
-    delete socketList[socket.id];
-    delete socket.id;
-    delete socket.gameID;
-    delete socket.initials;
+  socket.on("join", function (data) {
+    console.log("Received join message from client");
   });
 
+  socket.on("disconnect", function () {
+    console.log("disconnected!");
+    delete socket.pos;
+    delete currSocket;
+    delete socketList[currSocket];
+    delete socket.id;
+  });
   socket.on("updatePos", function (data) {
     games[socket.gameID].updatePlayer(data.id, data.dx, data.dy);
   });
@@ -73,6 +77,7 @@ io.on("connection", function (socket) {
     // console.log("Team choice is " + teamChoice);
   });
 
+<<<<<<< HEAD
   socket.on("catch", function (data) {
     currGame = games[socket.gameID];
     player = currGame.players[data.id];
@@ -88,15 +93,36 @@ io.on("connection", function (socket) {
     // if player in possession throw ball
     if (baller.id == data.id) {
       currGame.ball.throw(baller.angle, data.pow);
+=======
+  socket.on("restartGame", function (id) {
+    let key;
+    for (key of Object.keys(games)) {
+      let g = games[key];
+      let p;
+      for (p of g.getPlayers()) {
+        if (p.id == id) {
+          g.restart();
+        }
+      }
+>>>>>>> master
     }
   });
 });
+
+// Main Game
+// Create the necessary game attributes
+// var ball = new Basketball();
+var hoops = [];
+// hoops.push(new Hoop());
+// hoops.push(new Hoop());
+var PLAYER_SIZE = 20;
 
 setInterval(function () {
   let key;
   for (key of Object.keys(games)) {
     game = games[key];
     game.update();
+
     // Emit update to players
     let newData = game.draw();
     for (let key in game.players) {
@@ -108,8 +134,22 @@ setInterval(function () {
         });
       }
     }
+
+    let currScore = game.score;
+    if (currScore["Team 1"] >= 11 || currScore["Team 2"] >= 11) {
+      var winner;
+      if (currScore["Team 1"] >= 11) {
+        winner = "Team 1";
+      }
+      if (currScore["Team 2"] >= 11) {
+        winner = "Team 2";
+      }
+      let s;
+      for (s of game.getPlayers()) {
+        socketList[s].emit("winReceiver", winner);
+      }
+    }
   }
-  1000 / 30;
-});
+}, 1000 / 30);
 
 server.listen(process.env.PORT || 3000);

@@ -7,6 +7,7 @@ class Player {
     } else {
       this.initials = initials;
     }
+    console.log("team is: " + team);
     this.setTeam(team);
     this.id = id;
     this.size = CONSTANTS.PLAYER_SIZE;
