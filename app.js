@@ -31,7 +31,6 @@ io.on("connection", function (socket) {
 
   socket.id = idTracker;
   socketList[socket.id] = socket;
-  currSocket = socket;
   socket.emit("giveID", socket.id);
   idTracker++;
   socket.gameID = 1;
@@ -47,10 +46,10 @@ io.on("connection", function (socket) {
 
   socket.on("disconnect", function () {
     console.log("disconnected!");
+    delete games[socket.gameID].players[socket.id];
     delete socket.pos;
-    delete currSocket;
-    delete socketList[currSocket];
-    delete socket.id;
+    delete socketList[socket.id];
+    // delete socket.id;
   });
   socket.on("updatePos", function (data) {
     games[socket.gameID].updatePlayer(data.id, data.dx, data.dy);
