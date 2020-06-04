@@ -49,6 +49,7 @@ io.on("connection", function (socket) {
 });
 
 setInterval(function () {
+<<<<<<< HEAD
   let key;
   for(key of Object.keys(games)) {
     game = games[key];
@@ -59,6 +60,22 @@ setInterval(function () {
     for(player of game.getPlayers()) {
       socketList[player].emit("drawData", newData);
     }
+=======
+  let playerPositions = {};
+  let playerAngles = {};
+  for (let key in socketList) {
+    playerPositions[key] = socketList[key].pos;
+    playerAngles[key] = socketList[key].angle;
+  }
+
+  for (let key in socketList) {
+    // Assume the background and the hoops are static and drawn automatically on player side
+    socketList[key].emit("updatePlayers", playerPositions);
+    socketList[key].emit("updateAngles", playerAngles);
+    // TODO actually emit the score
+    socketList[key].emit("updateScore", { redScore: 0, blueScore: 0 });
+    // socketList[key].emit("updateBall", ball);
+>>>>>>> master
   }
 }, 1000 / 30);
 
