@@ -12,7 +12,7 @@ $(document).ready(function () {
 
       // hide the input and show the list of games/game
       $("#initials-input-wrapper").addClass("hidden");
-      $("#game-canvas-wrapper").removeClass("hidden");
+      $("#team-choice-wrapper").removeClass("hidden");
     }
   });
 
@@ -22,6 +22,6 @@ $(document).ready(function () {
 
     // hide the input and show the list of games/game
     $("#initials-input-wrapper").addClass("hidden");
-    $("#game-canvas-wrapper").removeClass("hidden");
+    $("#team-choice-wrapper").removeClass("hidden");
   }
 });
