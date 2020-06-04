@@ -71,7 +71,10 @@ class Game {
     // Player vs. Ball
     for (let key of this.getPlayers()) {
       let player = this.players[key];
-      if (this.ball.collidable.collides(player.collidable)) {
+      if (
+        this.ball.collidable.collides(player.collidable) &&
+        (!this.ball.player || this.ball.player.id != player.id)
+      ) {
         this.ball.caught(player);
       }
     }
