@@ -3,9 +3,8 @@ var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
+var CONSTANTS = require("./client/js/clientConstants.js");
 var Game = require("./js/Game");
-// var Basketball = require("./basketball");
-//var Game = require("./game");
 
 var LOGGING = true;
 function log(str) {
@@ -21,8 +20,6 @@ app.get("/", function (req, res, next) {
 
 let idTracker = 1;
 
-//var game = new Game(1);
-
 let socketList = {};
 var games = {};
 games[1] = new Game();
@@ -31,7 +28,6 @@ io.on("connection", function (socket) {
   var player = {};
 
   player.id = idTracker;
-  //game.prototype.addPlayer(player);
 
   socket.id = idTracker;
   socketList[socket.id] = socket;
@@ -60,9 +56,18 @@ io.on("connection", function (socket) {
   });
 
   socket.on("initials", function (data) {
-    // TODO associate initials with player object
-    socket.initials = data;
-    console.log("Received player initials: " + socket.initials);
+    games[socket.gameID].updatePlayerInitials(data.id, data.initials);
+    console.log("Received player initials: " + data.initials);
+  });
+
+  let teamTracker = {};
+  socket.on("teamChoice", function (data) {
+    teamChoice = data.team;
+    games[socket.gameID].players[data.id].setTeam(
+      teamChoice === "TEAM_1" ? CONSTANTS.TEAM_1 : CONSTANTS.TEAM_2
+    );
+    // teamTracker[socket.id] = teamChoice;
+    // console.log("Team choice is " + teamChoice);
   });
 
   socket.on("leftMouseClick", function (data) {
@@ -87,13 +92,14 @@ setInterval(function () {
     game.update();
     // Emit update to players
     let newData = game.draw();
-    let player;
-    for (player of game.getPlayers()) {
-      socketList[player].emit("drawData", newData);
-      socketList[player].emit("updateScore", {
-        team1Score: game.score["Team 1"],
-        team2Score: game.score["Team 2"],
-      });
+    for (let key in game.players) {
+      if (socketList[key]) {
+        socketList[key].emit("drawData", newData);
+        socketList[key].emit("updateScore", {
+          team1Score: game.score["Team 1"],
+          team2Score: game.score["Team 2"],
+        });
+      }
     }
   }
   1000 / 30;

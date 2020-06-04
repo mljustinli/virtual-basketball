@@ -45,6 +45,13 @@ function setup() {
 function draw() {
   drawBasketballCourt();
 
+  drawPlayers();
+  drawStaminaBar();
+  drawScore();
+  handleMovement();
+}
+
+function drawPlayers() {
   noStroke();
   for (let key of Object.keys(toDraw)) {
     let obj = toDraw[key];
@@ -73,11 +80,21 @@ function draw() {
       drawAngleIndicator(createVector(playerPosX, playerPosY), angle);
       // also update the server with offset
       socket.emit("updateAngle", { id: id, angle: angle });
+
+      fill(0, 255, 0);
+      textSize(16);
+      if (obj.initials) {
+        console.log("yay");
+      }
+      text(obj.initials, obj.pos.x - 10, obj.pos.y - 20);
     } else if (obj.id != -1) {
       let angle = obj.angle;
       if (angle) {
         drawAngleIndicator(createVector(obj.pos.x, obj.pos.y), angle);
       }
+      fill(0);
+      textSize(16);
+      text(obj.initials, obj.pos.x - 10, obj.pos.y - 20);
     }
   }
   // drawPlayers();
