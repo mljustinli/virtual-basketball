@@ -1,4 +1,8 @@
 var socket = io();
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 let id;
 let playerPositions;
 let playerAngles;
@@ -28,6 +32,15 @@ socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
+<<<<<<< HEAD
+socket.on("updatePlayers", function (data) {
+  playerPositions = data;
+});
+socket.on("updateAngles", function (data) {
+  playerAngles = data;
+});
+=======
+>>>>>>> master
 socket.on("updateScore", function (data) {
   team1Score = data.team1Score;
   team2Score = data.team2Score;
@@ -67,6 +80,10 @@ function updateAngleIndicator() {
 
 function drawPlayers() {
   noStroke();
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
   for (let key of Object.keys(toDraw)) {
     let obj = toDraw[key];
     fill(obj.fillColor.r, obj.fillColor.g, obj.fillColor.b);
@@ -90,7 +107,17 @@ function drawPlayers() {
     } else {
       noStroke();
       circle(obj.pos.x, obj.pos.y, obj.size);
+<<<<<<< HEAD
+  }
+
+  drawPlayers();
+  drawStaminaBar();
+  drawScore();
+  handleMovement();
+}
+=======
     }
+>>>>>>> master
 
     if (obj.id == id) {
       playerPosX = obj.pos.x;
@@ -124,6 +151,10 @@ function drawPlayers() {
     }
   }
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 
 function drawStaminaBar() {
   // draw stamina bar
@@ -164,10 +195,33 @@ function handleMovement() {
   }
 }
 
+<<<<<<< HEAD
 function drawAngleIndicator(pos, angle, throwPower) {
   let offset = createVector(
     (ANGLE_INDICATOR_LENGTH + throwPower) * cos(angle),
     (ANGLE_INDICATOR_LENGTH + throwPower) * sin(angle)
+=======
+<<<<<<< HEAD
+function drawStaminaBar() {
+  // draw stamina bar
+  stroke(255);
+  fill(230, 165, 46);
+  strokeWeight(3);
+  rect(20, height - 50, 80, 20);
+  noStroke();
+  fill(255);
+  rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
+}
+
+=======
+>>>>>>> master
+function drawAngleIndicator(pos, angle) {
+  let leftAngle = angle + 15 * (PI / 180);
+  let rightAngle = angle - 15 * (PI / 180);
+  let offsetPos = createVector(
+    pos.x + ANGLE_INDICATOR_LENGTH * cos(angle),
+    pos.y + ANGLE_INDICATOR_LENGTH * sin(angle)
+>>>>>>> rooms
   );
   let offsetPos = createVector(pos.x + offset.x, pos.y + offset.y);
   let offsetLeft = createVector(offset.x, offset.y);
