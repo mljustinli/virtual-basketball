@@ -314,7 +314,7 @@ function mousePressed() {
 function mouseReleased() {
   holdingThrow = false;
   if (hasBall) {
-    socket.emit("throw", {id: id, pow: throwPower/50});
+    socket.emit("throw", {id: id, pow: throwPower/5});
   }
   // attempt to catch
   else {
