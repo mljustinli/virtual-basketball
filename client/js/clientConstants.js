@@ -4,9 +4,9 @@ const COURT_PADDING = 40;
 const FREE_THROW_ZONE_WIDTH = WIDTH - 2 * COURT_PADDING - 40;
 const RECT_WIDTH = 90;
 const RECT_HEIGHT = 110;
-const CENTER_CIRCLE_RADIUS = 10;
-const HOOP_SIZE = CENTER_CIRCLE_RADIUS;
-const PLAYER_SIZE = CENTER_CIRCLE_RADIUS;
+const CENTER_CIRCLE_RADIUS = RECT_WIDTH;
+const HOOP_SIZE = 10;
+const PLAYER_SIZE = 20;
 const PLAYER_SPEED = 2;
 const PLAYER_FAST_SPEED = 4;
 const MAX_STAMINA = 60;
@@ -14,15 +14,17 @@ const BASKETBALL_STARTING_POSITION = { x: 240, y: 320 };
 const BASKETBALL_SIZE = 20;
 const ANGLE_INDICATOR_LENGTH = 20;
 const TEAM_1 = {
+  // blue team
   id: 1,
-  rgb: { r: 0, g: 0, b: 0 },
+  rgb: { r: 181, g: 21, b: 18 }, // 181, 21, 18
   name: "Team 1",
   startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 0, y: 0 },
 };
 const TEAM_2 = {
+  // red team
   id: 2,
-  rgb: { r: 0, g: 0, b: 0 },
+  rgb: { r: 30, g: 96, b: 189 }, // fill(30, 96, 189);
   name: "Team 2",
   startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 0, y: 0 },
