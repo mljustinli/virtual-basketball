@@ -1,4 +1,4 @@
-var socket = io();
+var socket = io({transports: ['websocket'], upgrade: false});
 let id;
 let playerPositions;
 let playerAngles;
