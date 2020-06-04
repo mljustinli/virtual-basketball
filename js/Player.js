@@ -7,13 +7,8 @@ class Player {
     } else {
       this.initials = initials;
     }
-    this.team = team;
+    this.setTeam(team);
     this.id = id;
-    this.pos = {
-      x: this.team.startingPosition.x,
-      y: this.team.startingPosition.y,
-    };
-    this.rgb = this.team.rgb;
     this.size = CONSTANTS.PLAYER_SIZE;
     this.angle = 0;
     this.collidable = new Circle(this.pos.x, this.pos.y, this.size);
@@ -40,6 +35,15 @@ class Player {
 
   updateAngle(angle) {
     this.angle = angle;
+  }
+
+  setTeam(team) {
+    this.team = team;
+    this.pos = {
+      x: this.team.startingPosition.x,
+      y: this.team.startingPosition.y,
+    };
+    this.rgb = this.team.rgb;
   }
 
   draw() {
