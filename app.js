@@ -73,10 +73,9 @@ setInterval(function () {
     game.update();
     // Emit update to players
     let newData = game.draw();
-    let player;
-    for (player of game.getPlayers()) {
-      socketList[player].emit("drawData", newData);
-      socketList[player].emit("updateScore", {
+    for (let key in game.players) {
+      socketList[key].emit("drawData", newData);
+      socketList[key].emit("updateScore", {
         team1Score: game.score["Team 1"],
         team2Score: game.score["Team 2"],
       });
