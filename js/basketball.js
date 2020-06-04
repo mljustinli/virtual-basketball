@@ -10,7 +10,7 @@ class Basketball {
     // 0: None. 1: Team 1, 2: Team 2
     this.team = undefined;
     this.player = undefined;
-    this.rgb = { r: 255, g: 127, b: 255 };
+    this.rgb = { r: 255, g: 111, b: 0 }; // 255, 111, 0
     this.locked_team = undefined;
     this.collidable = new Circle(this.pos.x, this.pos.y, this.size);
   }

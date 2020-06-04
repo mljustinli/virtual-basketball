@@ -49,6 +49,13 @@ function draw() {
   for (let key of Object.keys(toDraw)) {
     let obj = toDraw[key];
     fill(obj.fillColor.r, obj.fillColor.g, obj.fillColor.b);
+    if (obj.id == -1) {
+      // basketball
+      strokeWeight(1);
+      stroke(0);
+    } else {
+      noStroke();
+    }
     circle(obj.pos.x, obj.pos.y, obj.size);
 
     if (obj.id == id) {
