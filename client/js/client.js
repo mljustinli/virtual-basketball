@@ -1,4 +1,8 @@
 var socket = io();
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 let id;
 let playerPositions;
 let playerAngles;
@@ -8,6 +12,9 @@ let movingDown = false;
 let movingLeft = false;
 let movingRight = false;
 let holdingShift = false;
+let holdingThrow = false;
+let throwPower = 0;
+let hasBall = false;
 let stamina = MAX_STAMINA;
 let playerPosX = 0;
 let playerPosY = 0;
@@ -27,6 +34,15 @@ socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
+<<<<<<< HEAD
+socket.on("updatePlayers", function (data) {
+  playerPositions = data;
+});
+socket.on("updateAngles", function (data) {
+  playerAngles = data;
+});
+=======
+>>>>>>> master
 socket.on("updateScore", function (data) {
   team1Score = data.team1Score;
   team2Score = data.team2Score;
@@ -51,7 +67,29 @@ function setup() {
 function draw() {
   drawBasketballCourt();
 
+  updateAngleIndicator();
+  drawPlayers();
+  drawStaminaBar();
+  drawScore();
+  handleMovement();
+}
+
+function updateAngleIndicator() {
+  if (holdingThrow) {
+    throwPower += (MAX_THROW_POWER - throwPower) / 10;
+  } else {
+    if (throwPower > 0) {
+      throwPower--;
+    }
+  }
+}
+
+function drawPlayers() {
   noStroke();
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
   for (let key of Object.keys(toDraw)) {
     let obj = toDraw[key];
     fill(obj.fillColor.r, obj.fillColor.g, obj.fillColor.b);
@@ -66,26 +104,59 @@ function draw() {
       } else {
         circle(obj.pos.x, obj.pos.y, obj.size);
       }
+
+      if (obj.playerID && obj.playerID == id) {
+        hasBall = true;
+      } else {
+        hasBall = false;
+      }
     } else {
       noStroke();
       circle(obj.pos.x, obj.pos.y, obj.size);
+<<<<<<< HEAD
+  }
+
+  drawPlayers();
+  drawStaminaBar();
+  drawScore();
+  handleMovement();
+}
+=======
     }
+>>>>>>> master
 
     if (obj.id == id) {
       playerPosX = obj.pos.x;
       playerPosY = obj.pos.y;
       let offset = createVector(mouseX - playerPosX, mouseY - playerPosY);
       let angle = atan2(offset.y, offset.x);
-      drawAngleIndicator(createVector(playerPosX, playerPosY), angle);
+      drawAngleIndicator(
+        createVector(playerPosX, playerPosY),
+        angle,
+        throwPower
+      );
       // also update the server with offset
       socket.emit("updateAngle", { id: id, angle: angle });
+      socket.emit("updateThrowPower", { id: id, power: throwPower });
+
+      fill(0, 255, 0);
+      textSize(16);
+      text(obj.initials, obj.pos.x - 10, obj.pos.y - 20);
     } else if (obj.id != -1) {
       let angle = obj.angle;
       if (angle) {
-        drawAngleIndicator(createVector(obj.pos.x, obj.pos.y), angle);
+        drawAngleIndicator(
+          createVector(obj.pos.x, obj.pos.y),
+          angle,
+          obj.throwPower
+        );
       }
+      fill(0);
+      textSize(16);
+      text(obj.initials, obj.pos.x - 10, obj.pos.y - 20);
     }
   }
+<<<<<<< HEAD
   // drawPlayers();
   drawStaminaBar();
   drawScore();
@@ -93,7 +164,13 @@ function draw() {
   if (gameOver) {
     this.drawWin();
   }
+=======
+>>>>>>> master
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 
 function drawStaminaBar() {
   // draw stamina bar
@@ -107,45 +184,85 @@ function drawStaminaBar() {
 }
 
 function handleMovement() {
-  if (movingUp) {
-    socket.emit("updatePos", { id: id, dx: 0, dy: -playerSpeed });
-  }
-  if (movingDown) {
-    socket.emit("updatePos", { id: id, dx: 0, dy: playerSpeed });
-  }
-  if (movingLeft) {
-    socket.emit("updatePos", { id: id, dx: -playerSpeed, dy: 0 });
-  }
-  if (movingRight) {
-    socket.emit("updatePos", { id: id, dx: playerSpeed, dy: 0 });
-  }
-  if (holdingShift && (movingUp || movingDown || movingLeft || movingRight)) {
-    stamina -= 2;
-    if (stamina <= 0) {
-      playerSpeed = PLAYER_SPEED;
-      stamina = 0;
+  if (!holdingThrow) {
+    if (movingUp) {
+      socket.emit("updatePos", { id: id, dx: 0, dy: -playerSpeed });
     }
-  } else {
-    if (stamina < MAX_STAMINA) {
-      stamina++;
+    if (movingDown) {
+      socket.emit("updatePos", { id: id, dx: 0, dy: playerSpeed });
+    }
+    if (movingLeft) {
+      socket.emit("updatePos", { id: id, dx: -playerSpeed, dy: 0 });
+    }
+    if (movingRight) {
+      socket.emit("updatePos", { id: id, dx: playerSpeed, dy: 0 });
+    }
+    if (holdingShift && (movingUp || movingDown || movingLeft || movingRight)) {
+      stamina -= 2;
+      if (stamina <= 0) {
+        playerSpeed = PLAYER_SPEED;
+        stamina = 0;
+      }
+    } else {
+      if (stamina < MAX_STAMINA) {
+        stamina++;
+      }
     }
   }
 }
 
+<<<<<<< HEAD
+function drawAngleIndicator(pos, angle, throwPower) {
+  let offset = createVector(
+    (ANGLE_INDICATOR_LENGTH + throwPower) * cos(angle),
+    (ANGLE_INDICATOR_LENGTH + throwPower) * sin(angle)
+=======
+<<<<<<< HEAD
+function drawStaminaBar() {
+  // draw stamina bar
+  stroke(255);
+  fill(230, 165, 46);
+  strokeWeight(3);
+  rect(20, height - 50, 80, 20);
+  noStroke();
+  fill(255);
+  rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
+}
+
+=======
+>>>>>>> master
 function drawAngleIndicator(pos, angle) {
   let leftAngle = angle + 15 * (PI / 180);
   let rightAngle = angle - 15 * (PI / 180);
   let offsetPos = createVector(
     pos.x + ANGLE_INDICATOR_LENGTH * cos(angle),
     pos.y + ANGLE_INDICATOR_LENGTH * sin(angle)
+>>>>>>> rooms
   );
+  let offsetPos = createVector(pos.x + offset.x, pos.y + offset.y);
+  let offsetLeft = createVector(offset.x, offset.y);
+  let offsetRight = createVector(offset.x, offset.y);
+  offsetLeft = offsetLeft
+    .rotate(PI - PI / 6)
+    .setMag(ANGLE_INDICATOR_ARROW_LENGTH);
+  offsetRight = offsetRight
+    .rotate(PI + PI / 6)
+    .setMag(ANGLE_INDICATOR_ARROW_LENGTH);
+  // let offsetPosLeft = createVector(
+  //   pos.x + (ANGLE_INDICATOR_LENGTH + throwPower - 4) * cos(leftAngle),
+  //   pos.y + (ANGLE_INDICATOR_LENGTH + throwPower - 4) * sin(leftAngle)
+  // );
   let offsetPosLeft = createVector(
-    pos.x + (ANGLE_INDICATOR_LENGTH - 4) * cos(leftAngle),
-    pos.y + (ANGLE_INDICATOR_LENGTH - 4) * sin(leftAngle)
+    offsetPos.x + offsetLeft.x,
+    offsetPos.y + offsetLeft.y
   );
+  // let offsetPosRight = createVector(
+  //   pos.x + (ANGLE_INDICATOR_LENGTH + throwPower - 4) * cos(rightAngle),
+  //   pos.y + (ANGLE_INDICATOR_LENGTH + throwPower - 4) * sin(rightAngle)
+  // );
   let offsetPosRight = createVector(
-    pos.x + (ANGLE_INDICATOR_LENGTH - 4) * cos(rightAngle),
-    pos.y + (ANGLE_INDICATOR_LENGTH - 4) * sin(rightAngle)
+    offsetPos.x + offsetRight.x,
+    offsetPos.y + offsetRight.y
   );
   strokeWeight(3);
   stroke(255, 0, 0);
@@ -228,4 +345,15 @@ function restarter(color) {
   console.log("im happening!");
   gameOver = true;
   winner = color;
+}
+
+function mousePressed() {
+  // TODO check that the ball is in this player's position, otherwise they can't throw lol
+  if (hasBall) {
+    holdingThrow = true;
+  }
+}
+
+function mouseReleased() {
+  holdingThrow = false;
 }
