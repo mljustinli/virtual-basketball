@@ -38,6 +38,7 @@ class Game {
 
   connect(playerID, initials) {
     // Add player to this instance
+    console.log(this.getTeam().id + "doto");
     this.players[playerID] = new Player(playerID, this.getTeam(), initials);
   }
 
@@ -104,14 +105,13 @@ class Game {
   score(player, points) {
     let scoring = this.players[player.id].team;
     if (scoring == TEAM_1) {
-      let newScore = this.score['Team 1'] + points;
-      this.score = {'Team 1': newScore, 'Team 2': this.score['Team 2']};
+      let newScore = this.score["Team 1"] + points;
+      this.score = { "Team 1": newScore, "Team 2": this.score["Team 2"] };
     } else if (scoring == TEAM_2) {
-      let newScore = this.score['Team 2'] + points;
-      this.score = {'Team 1': this.score['Team 1'], 'Team 2': newScore};
+      let newScore = this.score["Team 2"] + points;
+      this.score = { "Team 1": this.score["Team 1"], "Team 2": newScore };
     }
   }
-
 
   draw() {
     let objs = [];

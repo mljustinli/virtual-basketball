@@ -1,22 +1,15 @@
 var CONSTANTS = require("../client/js/clientConstants.js");
 const { Collisions, Circle, Polygon, Point } = require("detect-collisions");
 class Player {
-  constructor(id, initials, team) {
+  constructor(id, team, initials) {
     if (initials == undefined) {
       this.initials = id;
     } else {
       this.initials = initials;
     }
+    console.log("team is: " + team);
     this.setTeam(team);
     this.id = id;
-<<<<<<< HEAD
-    this.pos = {
-      x: team.startingPosition.x,
-      y: team.startingPosition.y,
-    };
-    this.rgb = team.rgb;
-=======
->>>>>>> master
     this.size = CONSTANTS.PLAYER_SIZE;
     this.angle = 0;
     this.throwPower = 0;
