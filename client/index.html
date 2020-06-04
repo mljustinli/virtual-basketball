@@ -18,11 +18,16 @@
       <div id="team-choice">Choose your team!</div>
         <input
         type="button"
-        id="team-choice"
+        id="team-choice-red"
         value="red"
         color=#4CAF50
-        onclick="clickage()"
+        onclick="clickage('red')"
         />
+        <input
+        type="button"
+        id="team-choice-blue"
+        value="blue"
+        onclick="clickage('blue')"
     </div>
     <div id="game-canvas-wrapper" class="hidden"></div>
     <script src="/socket.io/socket.io.js"></script>
