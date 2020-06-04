@@ -77,7 +77,6 @@ io.on("connection", function (socket) {
     // console.log("Team choice is " + teamChoice);
   });
 
-<<<<<<< HEAD
   socket.on("catch", function (data) {
     currGame = games[socket.gameID];
     player = currGame.players[data.id];
@@ -93,7 +92,9 @@ io.on("connection", function (socket) {
     // if player in possession throw ball
     if (baller.id == data.id) {
       currGame.ball.throw(baller.angle, data.pow);
-=======
+    }
+  });
+
   socket.on("restartGame", function (id) {
     let key;
     for (key of Object.keys(games)) {
@@ -104,7 +105,6 @@ io.on("connection", function (socket) {
           g.restart();
         }
       }
->>>>>>> master
     }
   });
 });
