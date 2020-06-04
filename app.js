@@ -64,6 +64,10 @@ io.on("connection", function (socket) {
     socket.initials = data;
     console.log("Received player initials: " + socket.initials);
   });
+
+  socket.on("autowin", function () {
+    games[socket.gameID].autoWin();
+  });
 });
 
 setInterval(function () {
@@ -71,6 +75,7 @@ setInterval(function () {
   for (key of Object.keys(games)) {
     game = games[key];
     game.update();
+
     // Emit update to players
     let newData = game.draw();
     let player;
@@ -80,6 +85,21 @@ setInterval(function () {
         team1Score: game.score["Team 1"],
         team2Score: game.score["Team 2"],
       });
+    }
+
+    let currScore = game.score;
+    if (currScore['Team 1'] >= 11 || currScore['Team 2'] >= 11) {
+      var winner;
+      if (currScore['Team 1'] >= 11) {
+        winner = 'Team 1';
+      }
+      if (currScore['Team 2'] >= 11) {
+        winner = 'Team 2';
+      }
+      let p;
+      for (p of game.getPlayers()) {
+        socketList[player].emit("winReceiver", winner);
+      }
     }
   }
   1000 / 30;

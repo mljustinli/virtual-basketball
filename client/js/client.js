@@ -33,6 +33,10 @@ socket.on("updateScore", function (data) {
 socket.on("drawData", function (data) {
   toDraw = data;
 });
+
+socket.on("winReceiver", function (team) {
+  this.restarter(team);
+})
 /**
  * Game Stuff
  */
@@ -97,6 +101,10 @@ function drawStaminaBar() {
   rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
 }
 
+function drawRestart(color) {
+
+}
+
 function handleMovement() {
   if (movingUp) {
     socket.emit("updatePos", { id: id, dx: 0, dy: -playerSpeed });
@@ -159,6 +167,8 @@ function drawScore() {
   text("Blue: " + team2Score, 350, 30);
 }
 
+
+
 function keyPressed() {
   if (keyCode == 87) {
     movingUp = true;
@@ -175,6 +185,10 @@ function keyPressed() {
   if (keyCode == 16) {
     holdingShift = true;
     playerSpeed = PLAYER_FAST_SPEED;
+  }
+  if (keyCode == 75) {
+    this.restarter('red');
+    //socket.emit("autowin");
   }
 }
 
@@ -195,4 +209,10 @@ function keyReleased() {
     holdingShift = false;
     playerSpeed = PLAYER_SPEED;
   }
+
+}
+
+function restarter(color) {
+  console.log("im happening!");
+  $("#winner-screen").removeClass("hidden");
 }
