@@ -49,6 +49,11 @@ io.on("connection", function (socket) {
     socketList[data.id].pos.y -= data.dx;
     socketList[data.id].pos.x += data.dy;
   });
+  socket.on("updateAngle", function (data) {
+    // TODO update player angle in a player object, but for now
+    // it's with a socket
+    socketList[data.id].angle = data.angle;
+  });
 
   socket.on("initials", function (data) {
     // TODO associate initials with player object
@@ -67,13 +72,16 @@ var PLAYER_SIZE = 20;
 
 setInterval(function () {
   let playerPositions = {};
+  let playerAngles = {};
   for (let key in socketList) {
     playerPositions[key] = socketList[key].pos;
+    playerAngles[key] = socketList[key].angle;
   }
 
   for (let key in socketList) {
     // Assume the background and the hoops are static and drawn automatically on player side
     socketList[key].emit("updatePlayers", playerPositions);
+    socketList[key].emit("updateAngles", playerAngles);
     // socketList[key].emit("updateBall", ball);
   }
 
