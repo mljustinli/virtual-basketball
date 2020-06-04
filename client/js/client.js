@@ -67,7 +67,7 @@ function draw() {
     socket.emit("updatePos", { id: id, dx: 0, dy: playerSpeed });
   }
   if (holdingShift && (movingUp || movingDown || movingLeft || movingRight)) {
-    stamina--;
+    stamina-=2;
     if (stamina <= 0) {
       playerSpeed = PLAYER_SPEED;
       stamina = 0;
