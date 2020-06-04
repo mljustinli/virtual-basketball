@@ -143,16 +143,6 @@ function drawPlayers() {
   handleMovement();
 }
 
-function drawStaminaBar() {
-  // draw stamina bar
-  stroke(255);
-  fill(230, 165, 46);
-  strokeWeight(3);
-  rect(20, height - 50, 80, 20);
-  noStroke();
-  fill(255);
-  rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
-}
 
 function handleMovement() {
   if (!holdingThrow) {
@@ -267,10 +257,6 @@ function keyPressed() {
   if (keyCode == 16) {
     holdingShift = true;
     playerSpeed = PLAYER_FAST_SPEED;
-  }
-  if (keyCode == 75) {
-    this.restarter("blue");
-    //socket.emit("autowin");
   }
   if (keyCode == 82 && gameOver) {
     gameOver = false;
