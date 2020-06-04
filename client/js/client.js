@@ -59,10 +59,11 @@ function draw() {
       drawAngleIndicator(createVector(playerPosX, playerPosY), angle);
       // also update the server with offset
       socket.emit("updateAngle", { id: id, angle: angle });
-    }
-
-    if (obj.id != -1) {
-      // draw arrow thing
+    } else if (obj.id != -1) {
+      let angle = obj.angle;
+      if (angle) {
+        drawAngleIndicator(createVector(obj.pos.x, obj.pos.y), angle);
+      }
     }
   }
   // drawPlayers();
