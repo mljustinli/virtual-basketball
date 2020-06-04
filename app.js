@@ -65,6 +65,12 @@ io.on("connection", function (socket) {
     games[socket.gameID].updatePlayerInitials(data.id, data.initials);
     console.log("Received player initials: " + data.initials);
   });
+   let teamTracker= {};
+  socket.on("teamChoice", function(data){
+    teamChoice=data;
+    teamTracker[socket.id]=teamChoice;
+    console.log("Team choice is "+ teamChoice);
+  });
 });
 
 setInterval(function () {
