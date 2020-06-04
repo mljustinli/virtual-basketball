@@ -1,8 +1,4 @@
 var socket = io();
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 let id;
 let playerPositions;
 let playerAngles;
@@ -34,15 +30,12 @@ socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
-<<<<<<< HEAD
 socket.on("updatePlayers", function (data) {
   playerPositions = data;
 });
 socket.on("updateAngles", function (data) {
   playerAngles = data;
 });
-=======
->>>>>>> master
 socket.on("updateScore", function (data) {
   team1Score = data.team1Score;
   team2Score = data.team2Score;
@@ -54,7 +47,7 @@ socket.on("drawData", function (data) {
 
 socket.on("winReceiver", function (team) {
   this.restarter(team);
-})
+});
 /**
  * Game Stuff
  */
@@ -72,6 +65,9 @@ function draw() {
   drawStaminaBar();
   drawScore();
   handleMovement();
+  if (gameOver) {
+    this.drawWin();
+  }
 }
 
 function updateAngleIndicator() {
@@ -86,10 +82,6 @@ function updateAngleIndicator() {
 
 function drawPlayers() {
   noStroke();
-<<<<<<< HEAD
-
-=======
->>>>>>> master
   for (let key of Object.keys(toDraw)) {
     let obj = toDraw[key];
     fill(obj.fillColor.r, obj.fillColor.g, obj.fillColor.b);
@@ -113,17 +105,7 @@ function drawPlayers() {
     } else {
       noStroke();
       circle(obj.pos.x, obj.pos.y, obj.size);
-<<<<<<< HEAD
-  }
-
-  drawPlayers();
-  drawStaminaBar();
-  drawScore();
-  handleMovement();
-}
-=======
     }
->>>>>>> master
 
     if (obj.id == id) {
       playerPosX = obj.pos.x;
@@ -156,21 +138,7 @@ function drawPlayers() {
       text(obj.initials, obj.pos.x - 10, obj.pos.y - 20);
     }
   }
-<<<<<<< HEAD
-  // drawPlayers();
-  drawStaminaBar();
-  drawScore();
-  handleMovement();
-  if (gameOver) {
-    this.drawWin();
-  }
-=======
->>>>>>> master
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 
 function drawStaminaBar() {
   // draw stamina bar
@@ -211,13 +179,6 @@ function handleMovement() {
   }
 }
 
-<<<<<<< HEAD
-function drawAngleIndicator(pos, angle, throwPower) {
-  let offset = createVector(
-    (ANGLE_INDICATOR_LENGTH + throwPower) * cos(angle),
-    (ANGLE_INDICATOR_LENGTH + throwPower) * sin(angle)
-=======
-<<<<<<< HEAD
 function drawStaminaBar() {
   // draw stamina bar
   stroke(255);
@@ -229,15 +190,10 @@ function drawStaminaBar() {
   rect(20 + 3, height - 50 + 3, 74 * (stamina / MAX_STAMINA), 14);
 }
 
-=======
->>>>>>> master
-function drawAngleIndicator(pos, angle) {
-  let leftAngle = angle + 15 * (PI / 180);
-  let rightAngle = angle - 15 * (PI / 180);
-  let offsetPos = createVector(
-    pos.x + ANGLE_INDICATOR_LENGTH * cos(angle),
-    pos.y + ANGLE_INDICATOR_LENGTH * sin(angle)
->>>>>>> rooms
+function drawAngleIndicator(pos, angle, throwPower) {
+  let offset = createVector(
+    (ANGLE_INDICATOR_LENGTH + throwPower) * cos(angle),
+    (ANGLE_INDICATOR_LENGTH + throwPower) * sin(angle)
   );
   let offsetPos = createVector(pos.x + offset.x, pos.y + offset.y);
   let offsetLeft = createVector(offset.x, offset.y);
@@ -292,7 +248,6 @@ function drawWin() {
   text("Press R to restart", 100, 360);
 }
 
-
 function keyPressed() {
   if (keyCode == 87) {
     movingUp = true;
@@ -311,7 +266,7 @@ function keyPressed() {
     playerSpeed = PLAYER_FAST_SPEED;
   }
   if (keyCode == 75) {
-    this.restarter('blue');
+    this.restarter("blue");
     //socket.emit("autowin");
   }
   if (keyCode == 82 && gameOver) {
@@ -338,7 +293,6 @@ function keyReleased() {
     holdingShift = false;
     playerSpeed = PLAYER_SPEED;
   }
-
 }
 
 function restarter(color) {
