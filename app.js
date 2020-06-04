@@ -4,6 +4,7 @@ var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 // var Basketball = require("./basketball");
+var Game = require("./game");
 
 var LOGGING = true;
 function log(str) {
@@ -19,15 +20,22 @@ app.get("/", function (req, res, next) {
 
 let idTracker = 0;
 
+//var game = new Game(1);
+
 let socketList = {};
 let currSocket;
 
 io.on("connection", function (socket) {
+  var player = {};
+
+  player.id = idTracker;
+  //game.prototype.addPlayer(player);
+
+  socket.pos = { x : 0, y : 240};
   socket.id = idTracker;
   socketList[socket.id] = socket;
   currSocket = socket;
   socket.emit("giveID", socket.id);
-  socket.pos = { x: 0, y: 240 };
   idTracker++;
   console.log("Client connected...");
   console.log("Client id is: " + socket.id);
@@ -47,7 +55,8 @@ io.on("connection", function (socket) {
 
 });
   socket.on("updatePos", function (data) {
-    // console.log("receiving updatepos message");
+     console.log("receiving updatepos message");
+    // game.movePlayer(data)
     socketList[data.id].pos.y -= data.delta;
     socketList[data.id].pos.x += data.alpha;
     console.log(socketList[data.id].pos.y);

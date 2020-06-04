@@ -1,1 +1,1 @@
-let promptForInitials = false;
+let promptForInitials = true;
