@@ -1,8 +1,9 @@
 var CONSTANTS = require("../client/js/clientConstants.js");
 var io = require("socket.io");
-var Basketball = require("./Basketball.js");
-var Hoop = require("./Hoop.js");
-var Player = require("./Player.js");
+
+var Basketball = require("./Basketball");
+var Hoop = require("./Hoop");
+var Player = require("./Player");
 const { Collisions, Circle, Polygon, Point } = require("detect-collisions");
 
 class Game {
@@ -16,6 +17,9 @@ class Game {
     this.players = {};
     this.score = { "Team 1": 0, "Team 2": 0 };
   }
+  getPlayersArray() {
+    return this.players;
+  }
   getPlayers() {
     return Object.keys(this.players);
   }
@@ -26,6 +30,10 @@ class Game {
 
   updatePlayerAngle(playerID, angle) {
     this.players[playerID].updateAngle(angle);
+  }
+
+  updatePlayerInitials(playerID, initials) {
+    this.players[playerID].initials = initials;
   }
 
   connect(playerID, initials) {
@@ -68,9 +76,11 @@ class Game {
     // Player vs. Ball
     for (let key of this.getPlayers()) {
       let player = this.players[key];
-      if (this.ball.collidable.collides(player.collidable)) {
+      if (
+        this.ball.collidable.collides(player.collidable) &&
+        (!this.ball.player || this.ball.player.id != player.id)
+      ) {
         this.ball.caught(player);
-        // console.log("player touched ball");
       }
     }
 
@@ -105,9 +115,13 @@ class Game {
 
   playerPositions() {
     let positions = {};
-    let key;
-    for (key of this.getPlayers()) {
-      positions[key] = this.players.pos;
+    // let key;
+    // for (key of this.getPlayers()) {
+    //   positions[key] = this.players.pos;
+    // }
+    // return positions;
+    for (let key in this.players) {
+      positions[key] = this.players[key].pos;
     }
     return positions;
   }
