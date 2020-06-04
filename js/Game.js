@@ -31,6 +31,10 @@ class Game {
     this.players[playerID].updateAngle(angle);
   }
 
+  updatePlayerInitials(playerID, initials) {
+    this.players[playerID].initials = initials;
+  }
+
   connect(playerID, initials) {
     // Add player to this instance
     this.players[playerID] = new Player(playerID, this.getTeam(), initials);

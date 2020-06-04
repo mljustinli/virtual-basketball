@@ -61,8 +61,9 @@ io.on("connection", function (socket) {
 
   socket.on("initials", function (data) {
     // TODO associate initials with player object
-    socket.initials = data;
-    console.log("Received player initials: " + socket.initials);
+    // socket.initials = data;
+    games[socket.gameID].updatePlayerInitials(data.id, data.initials);
+    console.log("Received player initials: " + data.initials);
   });
 });
 
