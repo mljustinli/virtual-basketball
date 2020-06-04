@@ -75,7 +75,7 @@ io.on("connection", function (socket) {
     }
     // if player in possession throw ball on left click
     else if (baller.id == data.id) {
-      currGame.ball.throw(baller.angle, 10);
+      currGame.ball.throw(baller.angle, 0.5);
     }
   });
 });

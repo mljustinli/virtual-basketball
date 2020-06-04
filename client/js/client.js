@@ -18,7 +18,6 @@ let leftMouseClicked = false;
 
 socket.on("connect", function (data) {
   socket.emit("join");
-
   console.log("Whoooo we connected");
 });
 
