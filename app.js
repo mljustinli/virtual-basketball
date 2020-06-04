@@ -73,23 +73,20 @@ io.on("connection", function (socket) {
     // console.log("Team choice is " + teamChoice);
   });
 
-  // doesn't really do anything useful yet
-  socket.on("leftMousePress", function (data) {
-    if (games[socket.gameID].ball.player!=null) {
-      console.log("player " + data.id + " attempting to throw ball");
+  socket.on("catch", function (data) {
+    currGame = games[socket.gameID];
+    player = currGame.players[data.id];
+    if (currGame.ball.player==null) {
+      currGame.catchEventChecker(player);
     }
   });
 
-  socket.on("leftMouseRelease", function (data) {
+  socket.on("throw", function (data) {
+    console.log("power " + data.pow);
     currGame = games[socket.gameID];
-    player = currGame.players[data.id];
     baller = currGame.ball.player;
-    // interpret left release as attempt to catch
-    if (baller==null) {
-      isCaught = currGame.catchEventChecker(player);
-    }
-    // if player in possession throw ball on left keyReleased
-    else if (baller.id == data.id) {
+    // if player in possession throw ball
+    if (baller.id == data.id) {
       currGame.ball.throw(baller.angle, data.pow);
     }
   });

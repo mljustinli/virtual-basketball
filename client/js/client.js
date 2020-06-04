@@ -17,9 +17,6 @@ let playerPosY = 0;
 let team1Score = 0;
 let team2Score = 0;
 let toDraw = {};
-var timePressed = null;
-let leftMousePressed = false;
-let leftMouseReleased = false;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -129,16 +126,6 @@ function drawPlayers() {
   drawStaminaBar();
   drawScore();
   handleMovement();
-  if (leftMousePressed) {
-    socket.emit("leftMousePress", {id: id});
-    leftMousePressed = false;
-  }
-
-  if (leftMouseReleased) {
-    socket.emit("leftMouseRelease", {id: id, pow: timePressed/1000});
-    leftMouseReleased = false;
-    timePressed = null;
-  }
 }
 
 function drawStaminaBar() {
@@ -270,25 +257,19 @@ function keyReleased() {
 }
 
 function mousePressed() {
-<<<<<<< HEAD
-  if (mouseButton === LEFT) {
-    leftMousePressed = true;
-    timePressed = Date.now();
-=======
   // TODO check that the ball is in this player's position, otherwise they can't throw lol
   if (hasBall) {
     holdingThrow = true;
->>>>>>> master
   }
 }
 
 function mouseReleased() {
-<<<<<<< HEAD
-  if (mouseButton === LEFT) {
-    leftMouseReleased = true;
-    timePressed = Date.now() - timePressed;
-  }
-=======
   holdingThrow = false;
->>>>>>> master
+  if (hasBall) {
+    socket.emit("throw", {id: id, pow: throwPower/50});
+  }
+  // attempt to catch
+  else {
+    socket.emit("catch", {id: id});
+  }
 }
