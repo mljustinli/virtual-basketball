@@ -1,16 +1,4 @@
 var socket = io();
-<<<<<<< HEAD
-var id;
-var playerSpeed = PLAYER_SPEED;
-var movingUp = false;
-var movingDown = false;
-var movingLeft = false;
-var movingRight = false;
-var holdingShift = false;
-var stamina = MAX_STAMINA;
-var ball;
-var toDraw = {};
-=======
 
 let id;
 let playerPositions;
@@ -32,14 +20,11 @@ socket.on("connect", function (data) {
 
   console.log("Whoooo we connected");
 });
->>>>>>> master
 
 socket.on("giveID", function (data) {
   id = data;
   console.log("Given id is: " + id);
 });
-<<<<<<< HEAD
-=======
 socket.on("updatePlayers", function (data) {
   playerPositions = data;
 });
@@ -50,7 +35,6 @@ socket.on("updateScore", function (data) {
   redScore = data.redScore;
   blueScore = data.blueScore;
 });
->>>>>>> master
 
 socket.on("drawData", function (data) {
   toDraw = data;
@@ -68,13 +52,13 @@ function draw() {
   drawBasketballCourt();
 
   noStroke();
-<<<<<<< HEAD
+
   for (let key of Object.keys(toDraw)) {
       let obj = toDraw[key];
       fill(obj.fillColor.r, obj.fillColor.g, obj.fillColor.b);
       circle(obj.pos.x, obj.pos.y, obj.size);
   }
-=======
+
   drawPlayers();
   drawStaminaBar();
   drawScore();
@@ -109,7 +93,7 @@ function drawPlayers() {
     }
   }
 }
->>>>>>> master
+
 
   // draw stamina bar
   stroke(255);
@@ -145,8 +129,6 @@ function drawPlayers() {
   }
 }
 
-<<<<<<< HEAD
-=======
 function drawStaminaBar() {
   // draw stamina bar
   stroke(255);
@@ -194,7 +176,6 @@ function drawScore() {
   text("Blue: " + blueScore, 350, 30);
 }
 
->>>>>>> master
 function keyPressed() {
   if (keyCode == 87) {
     movingUp = true;
