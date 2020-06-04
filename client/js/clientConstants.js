@@ -13,6 +13,8 @@ const MAX_STAMINA = 60;
 const BASKETBALL_STARTING_POSITION = { x: 240, y: 320 };
 const BASKETBALL_SIZE = 20;
 const ANGLE_INDICATOR_LENGTH = 20;
+const ANGLE_INDICATOR_ARROW_LENGTH = 8;
+const MAX_THROW_POWER = 60;
 const TEAM_1 = {
   // blue team
   id: 1,

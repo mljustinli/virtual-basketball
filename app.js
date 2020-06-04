@@ -3,9 +3,8 @@ var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
+var CONSTANTS = require("./client/js/clientConstants.js");
 var Game = require("./js/Game");
-// var Basketball = require("./basketball");
-//var Game = require("./game");
 
 var LOGGING = true;
 function log(str) {
@@ -21,8 +20,6 @@ app.get("/", function (req, res, next) {
 
 let idTracker = 1;
 
-//var game = new Game(1);
-
 let socketList = {};
 var games = {};
 games[1] = new Game();
@@ -31,7 +28,6 @@ io.on("connection", function (socket) {
   var player = {};
 
   player.id = idTracker;
-  //game.prototype.addPlayer(player);
 
   socket.id = idTracker;
   socketList[socket.id] = socket;
@@ -58,18 +54,23 @@ io.on("connection", function (socket) {
   socket.on("updateAngle", function (data) {
     games[socket.gameID].updatePlayerAngle(data.id, data.angle);
   });
+  socket.on("updateThrowPower", function (data) {
+    games[socket.gameID].players[data.id].throwPower = data.power;
+  });
 
   socket.on("initials", function (data) {
-    // TODO associate initials with player object
-    // socket.initials = data;
     games[socket.gameID].updatePlayerInitials(data.id, data.initials);
     console.log("Received player initials: " + data.initials);
   });
-   let teamTracker= {};
-  socket.on("teamChoice", function(data){
-    teamChoice=data;
-    teamTracker[socket.id]=teamChoice;
-    console.log("Team choice is "+ teamChoice);
+
+  let teamTracker = {};
+  socket.on("teamChoice", function (data) {
+    teamChoice = data.team;
+    games[socket.gameID].players[data.id].setTeam(
+      teamChoice === "TEAM_1" ? CONSTANTS.TEAM_1 : CONSTANTS.TEAM_2
+    );
+    // teamTracker[socket.id] = teamChoice;
+    // console.log("Team choice is " + teamChoice);
   });
 });
 
