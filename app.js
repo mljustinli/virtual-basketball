@@ -38,7 +38,8 @@ io.on("connection", function (socket) {
   socket.emit("giveID", socket.id);
   idTracker++;
   socket.gameID = 1;
-  games[socket.gameID].connect(socket.id, socket.initials);
+  socket.team = 'red';
+  games[socket.gameID].connect(socket.id, socket.initials, socket.team);
   console.log("Client connected...");
   console.log("Client id is: " + socket.id);
   console.log("IP address is: " + socket.request.connection.remoteAddress);
@@ -64,6 +65,10 @@ io.on("connection", function (socket) {
     socket.initials = data;
     console.log("Received player initials: " + socket.initials);
   });
+
+  socket.on("teamChoice", function (color) {
+    //socket.team = color;
+  })
 });
 
 setInterval(function () {

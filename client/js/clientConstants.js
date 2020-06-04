@@ -15,14 +15,14 @@ const BASKETBALL_SIZE = 20;
 const ANGLE_INDICATOR_LENGTH = 20;
 const TEAM_1 = {
   id: 1,
-  rgb: { r: 0, g: 0, b: 0 },
+  rgb: { r: 255, g: 0, b: 0 },
   name: "Team 1",
   startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 0, y: 0 },
 };
 const TEAM_2 = {
   id: 2,
-  rgb: { r: 0, g: 0, b: 0 },
+  rgb: { r: 0, g: 0, b: 255 },
   name: "Team 2",
   startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 0, y: 0 },
