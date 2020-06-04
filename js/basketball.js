@@ -78,6 +78,7 @@ class Basketball {
   draw() {
     return {
       id: -1,
+      playerID: this.player ? this.player.id : null,
       pos: this.pos,
       fillColor: this.rgb,
       size: this.size,

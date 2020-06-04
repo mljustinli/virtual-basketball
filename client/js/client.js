@@ -10,6 +10,7 @@ let movingRight = false;
 let holdingShift = false;
 let holdingThrow = false;
 let throwPower = 0;
+let hasBall = false;
 let stamina = MAX_STAMINA;
 let playerPosX = 0;
 let playerPosY = 0;
@@ -79,6 +80,12 @@ function drawPlayers() {
         circle(obj.pos.x + offset.x, obj.pos.y + offset.y, obj.size);
       } else {
         circle(obj.pos.x, obj.pos.y, obj.size);
+      }
+
+      if (obj.playerID && obj.playerID == id) {
+        hasBall = true;
+      } else {
+        hasBall = false;
       }
     } else {
       noStroke();
@@ -248,7 +255,9 @@ function keyReleased() {
 
 function mousePressed() {
   // TODO check that the ball is in this player's position, otherwise they can't throw lol
-  holdingThrow = true;
+  if (hasBall) {
+    holdingThrow = true;
+  }
 }
 
 function mouseReleased() {
