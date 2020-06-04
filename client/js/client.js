@@ -53,10 +53,18 @@ function draw() {
       // basketball
       strokeWeight(1);
       stroke(0);
+      // TODO add offset for ball
+      if (obj.angle) {
+        let offset = createVector(8 * cos(obj.angle), 8 * sin(obj.angle));
+        offset.rotate(30 * (PI / 180));
+        circle(obj.pos.x + offset.x, obj.pos.y + offset.y, obj.size);
+      } else {
+        circle(obj.pos.x - 18, obj.pos.y - 18, obj.size);
+      }
     } else {
       noStroke();
+      circle(obj.pos.x, obj.pos.y, obj.size);
     }
-    circle(obj.pos.x, obj.pos.y, obj.size);
 
     if (obj.id == id) {
       playerPosX = obj.pos.x;

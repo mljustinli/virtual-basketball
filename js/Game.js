@@ -16,6 +16,9 @@ class Game {
     this.players = {};
     this.score = { "Team 1": 0, "Team 2": 0 };
   }
+  getPlayersArray() {
+    return this.players;
+  }
   getPlayers() {
     return Object.keys(this.players);
   }
@@ -70,7 +73,6 @@ class Game {
       let player = this.players[key];
       if (this.ball.collidable.collides(player.collidable)) {
         this.ball.caught(player);
-        // console.log("player touched ball");
       }
     }
 
@@ -105,9 +107,13 @@ class Game {
 
   playerPositions() {
     let positions = {};
-    let key;
-    for (key of this.getPlayers()) {
-      positions[key] = this.players.pos;
+    // let key;
+    // for (key of this.getPlayers()) {
+    //   positions[key] = this.players.pos;
+    // }
+    // return positions;
+    for (let key in this.players) {
+      positions[key] = this.players[key].pos;
     }
     return positions;
   }
