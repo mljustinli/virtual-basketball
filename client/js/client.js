@@ -12,6 +12,8 @@ let holdingShift = false;
 let stamina = MAX_STAMINA;
 let playerPosX = 0;
 let playerPosY = 0;
+let redScore = 0;
+let blueScore = 0;
 
 socket.on("connect", function (data) {
   socket.emit("join");
@@ -29,6 +31,10 @@ socket.on("updatePlayers", function (data) {
 socket.on("updateAngles", function (data) {
   playerAngles = data;
 });
+socket.on("updateScore", function (data) {
+  redScore = data.redScore;
+  blueScore = data.blueScore;
+});
 
 /**
  * Game Stuff
@@ -44,6 +50,13 @@ function draw() {
   drawBasketballCourt();
 
   noStroke();
+  drawPlayers();
+  drawStaminaBar();
+  drawScore();
+  handleMovement();
+}
+
+function drawPlayers() {
   if (playerPositions) {
     for (let key in playerPositions) {
       if (key == id) {
@@ -70,8 +83,6 @@ function draw() {
       ellipse(playerPositions[key].x, playerPositions[key].y, 20, 20);
     }
   }
-  drawStaminaBar();
-  handleMovement();
 }
 
 function handleMovement() {
@@ -139,6 +150,12 @@ function drawAngleIndicator(pos, angle) {
     offsetPosRight.x,
     offsetPosRight.y
   );
+}
+
+function drawScore() {
+  textSize(32);
+  text("Red: " + redScore, 5, 30);
+  text("Blue: " + blueScore, 350, 30);
 }
 
 function keyPressed() {

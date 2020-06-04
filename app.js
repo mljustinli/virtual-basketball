@@ -82,6 +82,8 @@ setInterval(function () {
     // Assume the background and the hoops are static and drawn automatically on player side
     socketList[key].emit("updatePlayers", playerPositions);
     socketList[key].emit("updateAngles", playerAngles);
+    // TODO actually emit the score
+    socketList[key].emit("updateScore", { redScore: 0, blueScore: 0 });
     // socketList[key].emit("updateBall", ball);
   }
 
