@@ -4,7 +4,7 @@ var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 // var Basketball = require("./basketball");
-var Game = require("./game");
+//var Game = require("./game");
 
 var LOGGING = true;
 function log(str) {
