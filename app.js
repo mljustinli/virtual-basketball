@@ -65,12 +65,17 @@ io.on("connection", function (socket) {
     console.log("Received player initials: " + socket.initials);
   });
 
-  socket.on("throwBall", function (data) {
+  socket.on("leftMouseClick", function (data) {
     currGame = games[socket.gameID];
-    plyr = currGame.ball.player;
-    //make sure the player trying to throw the ball is actually in possession
-    if((plyr!=null)&&(plyr.id == data.id) {
-      currGame.ball.throw(plyr.angle, 10);
+    player = currGame.players[data.id];
+    baller = currGame.ball.player;
+    // interpret left click as attempt to catch
+    if (baller==null) {
+      currGame.catchEventChecker(player);
+    }
+    // if player in possession throw ball on left click
+    else if (baller.id == data.id) {
+      currGame.ball.throw(baller.angle, 10);
     }
   });
 });
