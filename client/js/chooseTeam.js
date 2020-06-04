@@ -1,4 +1,3 @@
-
 function clickage(color) {
   if (color == 'blue') {
     console.log("BLUE TEAM");
