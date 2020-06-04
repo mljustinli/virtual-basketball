@@ -4,6 +4,7 @@
   "description": "It's basketball on Friday's... but virtual. Social distancing yay.",
   "main": "app.js",
   "dependencies": {
+    "@types/p5": "^0.9.0",
     "accepts": "^1.3.7",
     "array-flatten": "^1.1.1",
     "body-parser": "^1.19.0",
@@ -37,6 +38,7 @@
     "negotiator": "^0.6.2",
     "nodemon": "^2.0.4",
     "on-finished": "^2.3.0",
+    "p5": "^1.0.0",
     "parseurl": "^1.3.3",
     "path-to-regexp": "^0.1.7",
     "proxy-addr": "^2.0.6",

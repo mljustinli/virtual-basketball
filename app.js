@@ -45,22 +45,31 @@ io.on("connection", function (socket) {
     console.log("Received join message from client");
   });
 
-  socket.on("disconnect", function(){
+  socket.on("disconnect", function () {
     console.log("disconnected!");
-    delete(socket.pos);
-    delete(currSocket);
-    delete(socketList[currSocket]);
-    delete(socket.id);
-
-
-});
+    delete socket.pos;
+    delete currSocket;
+    delete socketList[currSocket];
+    delete socket.id;
+  });
   socket.on("updatePos", function (data) {
+<<<<<<< HEAD
      console.log("receiving updatepos message");
     // game.movePlayer(data)
     socketList[data.id].pos.y -= data.delta;
     socketList[data.id].pos.x += data.alpha;
     console.log(socketList[data.id].pos.y);
     console.log(socketList[data.id].pos.x);
+=======
+    // console.log("receiving updatepos message");
+    socketList[data.id].pos.y -= data.dx;
+    socketList[data.id].pos.x += data.dy;
+  });
+  socket.on("updateAngle", function (data) {
+    // TODO update player angle in a player object, but for now
+    // it's with a socket
+    socketList[data.id].angle = data.angle;
+>>>>>>> master
   });
 
   socket.on("initials", function (data) {
@@ -80,13 +89,18 @@ var PLAYER_SIZE = 20;
 
 setInterval(function () {
   let playerPositions = {};
+  let playerAngles = {};
   for (let key in socketList) {
     playerPositions[key] = socketList[key].pos;
+    playerAngles[key] = socketList[key].angle;
   }
 
   for (let key in socketList) {
     // Assume the background and the hoops are static and drawn automatically on player side
     socketList[key].emit("updatePlayers", playerPositions);
+    socketList[key].emit("updateAngles", playerAngles);
+    // TODO actually emit the score
+    socketList[key].emit("updateScore", { redScore: 0, blueScore: 0 });
     // socketList[key].emit("updateBall", ball);
   }
 
