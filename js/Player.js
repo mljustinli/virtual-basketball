@@ -11,6 +11,7 @@ class Player {
     this.id = id;
     this.size = CONSTANTS.PLAYER_SIZE;
     this.angle = 0;
+    this.throwPower = 0;
     this.collidable = new Circle(this.pos.x, this.pos.y, this.size);
   }
 
@@ -53,6 +54,7 @@ class Player {
       size: this.size,
       pos: this.pos,
       angle: this.angle,
+      throwPower: this.throwPower,
       initials: this.initials,
     };
   }

@@ -54,6 +54,9 @@ io.on("connection", function (socket) {
   socket.on("updateAngle", function (data) {
     games[socket.gameID].updatePlayerAngle(data.id, data.angle);
   });
+  socket.on("updateThrowPower", function (data) {
+    games[socket.gameID].players[data.id].throwPower = data.power;
+  });
 
   socket.on("initials", function (data) {
     games[socket.gameID].updatePlayerInitials(data.id, data.initials);
