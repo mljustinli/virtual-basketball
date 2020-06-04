@@ -72,35 +72,6 @@ function draw() {
   handleMovement();
 }
 
-// function drawPlayers() {
-//   if (playerPositions) {
-//     for (let key in playerPositions) {
-//       if (key == id) {
-//         playerPosX = playerPositions[key].x;
-//         playerPosY = playerPositions[key].y;
-//         let offset = createVector(mouseX - playerPosX, mouseY - playerPosY);
-//         let angle = atan2(offset.y, offset.x);
-//         drawAngleIndicator(
-//           createVector(playerPositions[key].x, playerPositions[key].y),
-//           angle
-//         );
-//         // also update the server with offset
-//         socket.emit("updateAngle", { id: id, angle: angle });
-//       } else {
-//         let angle = playerAngles[key];
-//         if (angle) {
-//           drawAngleIndicator(
-//             createVector(playerPositions[key].x, playerPositions[key].y),
-//             angle
-//           );
-//         }
-//       }
-//       fill(30, 96, 189);
-//       ellipse(playerPositions[key].x, playerPositions[key].y, 20, 20);
-//     }
-//   }
-// }
-
 function drawStaminaBar() {
   // draw stamina bar
   stroke(255);

@@ -70,7 +70,7 @@ class Game {
       let player = this.players[key];
       if (this.ball.collidable.collides(player.collidable)) {
         this.ball.caught(player);
-        console.log("player touched ball");
+        // console.log("player touched ball");
       }
     }
 

@@ -19,7 +19,7 @@ app.get("/", function (req, res, next) {
   res.sendFile(__dirname + "/client/index.html");
 });
 
-let idTracker = 0;
+let idTracker = 1;
 
 //var game = new Game(1);
 
@@ -81,19 +81,6 @@ setInterval(function () {
         team2Score: game.score["Team 2"],
       });
     }
-    // let playerPositions = {};
-    // let playerAngles = {};
-    // for (let key in socketList) {
-    //   playerPositions[key] = socketList[key].pos;
-    //   playerAngles[key] = socketList[key].angle;
-    //
-    //   // Assume the background and the hoops are static and drawn automatically on player side
-    //   socketList[key].emit("updatePlayers", playerPositions);
-    //   socketList[key].emit("updateAngles", playerAngles);
-    //   // TODO actually emit the score
-    //   socketList[key].emit("updateScore", { redScore: 0, blueScore: 0 });
-    //   // socketList[key].emit("updateBall", ball);
-    // }
   }
   1000 / 30;
 });
