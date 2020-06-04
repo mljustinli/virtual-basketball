@@ -18,7 +18,11 @@ const MAX_THROW_POWER = 60;
 const TEAM_1 = {
   // blue team
   id: 1,
+<<<<<<< HEAD
+  rgb: { r: 255, g: 0, b: 0 },
+=======
   rgb: { r: 181, g: 21, b: 18 }, // 181, 21, 18
+>>>>>>> master
   name: "Team 1",
   startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 0, y: 0 },
@@ -26,7 +30,11 @@ const TEAM_1 = {
 const TEAM_2 = {
   // red team
   id: 2,
+<<<<<<< HEAD
+  rgb: { r: 0, g: 0, b: 255 },
+=======
   rgb: { r: 30, g: 96, b: 189 }, // fill(30, 96, 189);
+>>>>>>> master
   name: "Team 2",
   startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 0, y: 0 },

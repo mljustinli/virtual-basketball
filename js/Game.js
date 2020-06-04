@@ -101,6 +101,18 @@ class Game {
     this.eventChecker();
   }
 
+  score(player, points) {
+    let scoring = this.players[player.id].team;
+    if (scoring == TEAM_1) {
+      let newScore = this.score['Team 1'] + points;
+      this.score = {'Team 1': newScore, 'Team 2': this.score['Team 2']};
+    } else if (scoring == TEAM_2) {
+      let newScore = this.score['Team 2'] + points;
+      this.score = {'Team 1': this.score['Team 1'], 'Team 2': newScore};
+    }
+  }
+
+
   draw() {
     let objs = [];
     objs.push(this.ball.draw());
@@ -112,6 +124,10 @@ class Game {
 
   // Close out this instance
   close() {}
+
+  restart() {
+    this.score = { "Team 1": 0, "Team 2": 0 };
+  }
 
   playerPositions() {
     let positions = {};
