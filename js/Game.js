@@ -1,9 +1,9 @@
 var CONSTANTS = require("../client/js/clientConstants.js");
 var io = require("socket.io");
 
-var Basketball = require("./Basketball.js");
-var Hoop = require("./Hoop.js");
-var Player = require("./Player.js");
+var Basketball = require("./Basketball");
+var Hoop = require("./Hoop");
+var Player = require("./Player");
 const { Collisions, Circle, Polygon, Point } = require("detect-collisions");
 
 class Game {
