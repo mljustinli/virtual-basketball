@@ -64,6 +64,7 @@ function draw() {
   drawStaminaBar();
   drawScore();
   handleMovement();
+  drawHoops();
   if (gameOver) {
     this.drawWin();
   }
@@ -137,10 +138,6 @@ function drawPlayers() {
       text(obj.initials, obj.pos.x - 10, obj.pos.y - 20);
     }
   }
-  // drawPlayers();
-  drawStaminaBar();
-  drawScore();
-  handleMovement();
 }
 
 
@@ -170,6 +167,15 @@ function handleMovement() {
       }
     }
   }
+}
+
+function drawHoops() {
+  //draw hoops
+  noFill();
+  stroke('#222222');
+  strokeWeight(5);
+  circle(240, 5, 10);
+  circle(240, 635, 10);
 }
 
 function drawStaminaBar() {

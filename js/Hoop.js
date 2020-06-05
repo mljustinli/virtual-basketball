@@ -12,6 +12,12 @@ class Hoop {
       [this.size, 0],
     ]);
   }
+
+  draw() {
+    return {
+
+    }
+  }
 }
 
 module.exports = Hoop;
