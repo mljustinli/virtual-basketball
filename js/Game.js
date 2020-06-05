@@ -89,7 +89,7 @@ class Game {
    for (let hoop of this.hoops) {
       if (hoop.collidable.collides(this.ball.collidable)) {
         this.ball.ballReset();
-        this.score[hoop.team] += 1;
+        this.score[hoop.team === "Red" ? "Blue" : "Red"] += 1;
 
       }
     }
