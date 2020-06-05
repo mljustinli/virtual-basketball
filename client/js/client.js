@@ -49,6 +49,10 @@ socket.on("winReceiver", function (team) {
   gameOver = true;
   winner = team;
 });
+
+socket.on("restarted", function() {
+  gameOver = false;
+})
 /**
  * Game Stuff
  */

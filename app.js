@@ -105,10 +105,19 @@ io.on("connection", function (socket) {
     let key;
     for (key of Object.keys(games)) {
       let g = games[key];
+      let thisGame = false;
       let p;
       for (p of g.getPlayers()) {
         if (p.id == id) {
           g.restart();
+          thisGame = true;
+        }
+      }
+      if (thisGame) {
+        for (let socks of g.players) {
+          if (socketList[socks]) {
+          socketList[socks].emit("restarted");
+          }
         }
       }
     }

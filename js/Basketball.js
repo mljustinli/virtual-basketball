@@ -16,9 +16,6 @@ class Basketball {
     this.dribble_factor = 1;
     this.isDribbling = false;
     this.isFalling = true;
-    this.distToHoopWhenThrown = {};
-    this.distToHoopWhenThrown["Red"] = 0;
-    this.distToHoopWhenThrown["Blue"] = 0;
   }
 
   updateCollidable() {
@@ -91,13 +88,11 @@ class Basketball {
   }
 
   ballReset(){
-    this.player=null;
+  this.player=null;
     this.vector_x = 0;
     this.vector_y = 0;
-    this.size = CONSTANTS.BASKETBALL_SIZE;
-    this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
     this.pos.x = 240;
-    this.pos.y= 320;
+    this.pos.y=(320);
   }
 
   caught(player) {
@@ -138,14 +133,6 @@ class Basketball {
     // New - Old
     this.vector_x = Math.cos(angle) * Power;
     this.vector_y = Math.sin(angle) * Power;
-    this.distToHoopWhenThrown["Red"] = Math.sqrt(
-      Math.pow(this.pos.x - CONSTANTS.TEAM_1.hoopPosition.x, 2)
-      + Math.pow(this.pos.y - CONSTANTS.TEAM_1.hoopPosition.y, 2)
-    )
-    this.distToHoopWhenThrown["Blue"] = Math.sqrt(
-      Math.pow(this.pos.x - CONSTANTS.TEAM_2.hoopPosition.x, 2)
-      + Math.pow(this.pos.y - CONSTANTS.TEAM_2.hoopPosition.y, 2)
-    )
   }
 
   dribble() {
