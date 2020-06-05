@@ -25,7 +25,7 @@ const TEAM_1 = {
   hoopPosition: { x: 0, y: 0 },
 =======
   startingPosition: { x: 0, y: 0 },
-  hoopPosition: { x: 240, y: 5 },
+  hoopPosition: { x: 240, y: 50 },
 >>>>>>> hoopin
 };
 const TEAM_2 = {
@@ -38,7 +38,7 @@ const TEAM_2 = {
   hoopPosition: { x: 0, y: 0 },
 =======
   startingPosition: { x: 0, y: 0 },
-  hoopPosition: { x: 240, y: 635 },
+  hoopPosition: { x: 240, y: 590 },
 >>>>>>> hoopin
 };
 
