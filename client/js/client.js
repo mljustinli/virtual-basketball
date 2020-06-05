@@ -64,6 +64,7 @@ function draw() {
   drawStaminaBar();
   drawScore();
   handleMovement();
+  drawHoops();
   if (gameOver) {
     this.drawWin();
   }
@@ -171,7 +172,8 @@ function handleMovement() {
 function drawHoops() {
   //draw hoops
   noFill();
-  stroke(5);
+  stroke('#222222');
+  strokeWeight(5);
   circle(240, 5, 10);
   circle(240, 635, 10);
 }
