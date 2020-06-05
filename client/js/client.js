@@ -174,8 +174,8 @@ function drawHoops() {
   noFill();
   stroke('#222222');
   strokeWeight(5);
-  circle(240, 5, 10);
-  circle(240, 635, 10);
+  circle(240, 50, 10);
+  circle(240, 590, 10);
 }
 
 function drawStaminaBar() {
