@@ -20,7 +20,7 @@ const TEAM_1 = {
   id: 1,
   rgb: { r: 181, g: 21, b: 18 }, // 181, 21, 18
   name: "Team 1",
-  startingPosition: { x: 0, y: 0 },
+  startingPosition: { x: WIDTH / 2, y: HEIGHT / 4 },
   hoopPosition: { x: 0, y: 0 },
 };
 const TEAM_2 = {
@@ -28,7 +28,7 @@ const TEAM_2 = {
   id: 2,
   rgb: { r: 30, g: 96, b: 189 }, // fill(30, 96, 189);
   name: "Team 2",
-  startingPosition: { x: 0, y: 0 },
+  startingPosition: { x: WIDTH / 2, y: (3 / 4.0) * HEIGHT },
   hoopPosition: { x: 0, y: 0 },
 };
 

@@ -13,7 +13,7 @@ class Player {
     this.size = CONSTANTS.PLAYER_SIZE;
     this.angle = 0;
     this.throwPower = 0;
-    this.collidable = new Circle(this.pos.x, this.pos.y, this.size);
+    this.reset();
   }
 
   updateCollidable() {
@@ -23,13 +23,27 @@ class Player {
 
   reset() {
     this.pos = {
-      x: this.team.startingPosition.x,
+      x: this.team.startingPosition.x + Math.random() * 200 - 100,
       y: this.team.startingPosition.y,
     };
+    this.collidable = new Circle(this.pos.x, this.pos.y, this.size);
     this.updateCollidable();
   }
 
   updatePosition(dx, dy) {
+    if (this.pos.x + dx + this.size / 2 > CONSTANTS.WIDTH - CONSTANTS.COURT_PADDING) {
+      dx = -Math.abs(dx);
+    }
+    if (this.pos.x + dx - this.size / 2 < CONSTANTS.COURT_PADDING) {
+      dx = Math.abs(dx);
+    }
+
+    if (this.pos.y + dy + this.size / 2 > CONSTANTS.HEIGHT - CONSTANTS.COURT_PADDING) {
+      dy  = -Math.abs(dy);
+    }
+    if (this.pos.y + dy - this.size / 2 < CONSTANTS.COURT_PADDING) {
+      dy = Math.abs(dy);
+    }
     this.pos.x += dx;
     this.pos.y += dy;
     this.updateCollidable();
@@ -41,10 +55,11 @@ class Player {
 
   setTeam(team) {
     this.team = team;
-    this.pos = {
-      x: this.team.startingPosition.x,
-      y: this.team.startingPosition.y,
-    };
+    // this.pos = {
+    //   x: this.team.startingPosition.x,
+    //   y: this.team.startingPosition.y,
+    // };
+    this.reset();
     this.rgb = this.team.rgb;
   }
 
