@@ -142,6 +142,15 @@ class Basketball {
     // New - Old
     this.vector_x = Math.cos(angle) * Power;
     this.vector_y = Math.sin(angle) * Power;
+    this.distToHoopWhenThrown["Red"] = Math.sqrt(
+      Math.pow(this.pos.x - CONSTANTS.TEAM_1.hoopPosition.x, 2)
+      + Math.pow(this.pos.y - CONSTANTS.TEAM_1.hoopPosition.y, 2)
+    )
+    this.distToHoopWhenThrown["Blue"] = Math.sqrt(
+      Math.pow(this.pos.x - CONSTANTS.TEAM_2.hoopPosition.x, 2)
+      + Math.pow(this.pos.y - CONSTANTS.TEAM_2.hoopPosition.y, 2)
+    )
+
   }
 
   dribble() {
