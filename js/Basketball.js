@@ -7,7 +7,7 @@ class Basketball {
     this.vector_x = 0;
     this.vector_y = 0;
     this.acceleration_factor = 0.98;
-    // 0: none, 1: team 1, 2: team 2
+    // 0: none, 1:, 2: team 2
     this.team = 0;
     this.player = null;
     this.rgb = { r: 255, g: 111, b: 0 }; // 255, 111, 0
@@ -67,9 +67,20 @@ class Basketball {
     // this.locked_team = null;
     this.team = 0;
     this.player = null;
+    this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
     this.vector_x = 0;
     this.vector_y = 0;
-    this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
+
+<<<<<<< HEAD
+=======
+  }
+
+  ballReset(){
+    this.vector_x = 0;
+    this.vector_y = 0;
+    this.pos.x = 240;
+    this.pos.y=(320);
+>>>>>>> hoopityscoop
   }
 
   caught(player) {

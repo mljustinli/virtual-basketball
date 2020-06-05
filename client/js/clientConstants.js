@@ -5,7 +5,7 @@ const FREE_THROW_ZONE_WIDTH = WIDTH - 2 * COURT_PADDING - 40;
 const RECT_WIDTH = 90;
 const RECT_HEIGHT = 110;
 const CENTER_CIRCLE_RADIUS = RECT_WIDTH;
-const HOOP_SIZE = 10;
+const HOOP_SIZE = 1;
 const PLAYER_SIZE = 20;
 const PLAYER_SPEED = 2;
 const PLAYER_FAST_SPEED = 4;
@@ -19,27 +19,30 @@ const TEAM_1 = {
   // red team
   id: 1,
   rgb: { r: 181, g: 21, b: 18 }, // 181, 21, 18
-  name: "Team 1",
 <<<<<<< HEAD
+  name: "Red",
   startingPosition: { x: WIDTH / 2, y: HEIGHT / 4 },
-  hoopPosition: { x: 0, y: 0 },
+  hoopPosition: { x: 240, y: 45 },
 =======
-  startingPosition: { x: 0, y: 0 },
-  hoopPosition: { x: 240, y: 5 },
->>>>>>> hoopin
+  name: "Team 1",
+
+  startingPosition: { x: WIDTH / 2, y: HEIGHT / 4 },
+  hoopPosition: { x: 240, y: 50 },
+>>>>>>> hoopityscoop
 };
 const TEAM_2 = {
   // blue team
   id: 2,
   rgb: { r: 30, g: 96, b: 189 }, // fill(30, 96, 189);
-  name: "Team 2",
 <<<<<<< HEAD
+  name: "Blue",
   startingPosition: { x: WIDTH / 2, y: (3 / 4.0) * HEIGHT },
-  hoopPosition: { x: 0, y: 0 },
+  hoopPosition: { x: 240, y: 585},
 =======
-  startingPosition: { x: 0, y: 0 },
-  hoopPosition: { x: 240, y: 635 },
->>>>>>> hoopin
+  name: "Team 2",
+  startingPosition: { x: WIDTH / 2, y: (3 / 4.0) * HEIGHT },
+  hoopPosition: { x: 240, y: 590 },
+>>>>>>> hoopityscoop
 };
 
 function define(name, value) {

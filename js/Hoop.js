@@ -13,11 +13,6 @@ class Hoop {
     ]);
   }
 
-  draw() {
-    return {
-
-    }
-  }
 }
 
 module.exports = Hoop;
