@@ -16,6 +16,7 @@ class Basketball {
     this.dribble_factor = 1;
     this.isDribbling = false;
     this.isFalling = true;
+    this.dribbleCountdown = CONSTANTS.TRAVELLING_TIME;
     this.distToHoopWhenThrown = {};
     this.distToHoopWhenThrown["Red"] = 0;
     this.distToHoopWhenThrown["Blue"] = 0;
@@ -77,7 +78,10 @@ class Basketball {
         this.isDribbling = !this.rise(
           this.dribble_factor, CONSTANTS.BASKETBALL_SIZE);
       }
-      console.log(this.size);
+    }
+    else if (this.dribbleCountdown > 0) {
+      this.dribbleCountdown--;
+      console.log(this.dribbleCountdown);
     }
   }
 
@@ -89,6 +93,12 @@ class Basketball {
     this.vector_x = 0;
     this.vector_y = 0;
 
+  }
+
+  dribbleReset() {
+    this.isDribbling = false;
+    this.size = CONSTANTS.BASKETBALL_SIZE;
+    this.dribbleCountdown = CONSTANTS.TRAVELLING_TIME;
   }
 
   ballReset(){
@@ -114,8 +124,7 @@ class Basketball {
 
     console.log("last scored was: " + this.lastScored);
     if (this.lastScored == null || !(this.lastScored === player.team.name)) {
-      this.isDribbling = false;
-      this.size = CONSTANTS.BASKETBALL_SIZE;
+      this.dribbleReset();
       this.player = player;
       this.team = player.team.id;
       this.vector_x = 0;
@@ -132,12 +141,12 @@ class Basketball {
       fillColor: this.rgb,
       size: this.size,
       angle: this.player ? this.player.angle : null,
+      travelling: ((this.dribbleCountdown>0) ? false : true),
     };
   }
 
   throw(angle, Power) {
-    this.isDribbling = false;
-    this.size = CONSTANTS.BASKETBALL_SIZE;
+    this.dribbleReset();
     this.player = null;
     // New - Old
     this.vector_x = Math.cos(angle) * Power;
@@ -154,7 +163,12 @@ class Basketball {
   }
 
   dribble() {
+    this.size = CONSTANTS.BASKETBALL_SIZE;
     this.isDribbling = true;
+    // dribbling only resets if travelling hasn't happened
+    if(this.dribbleCountdown>0){
+      this.dribbleCountdown = CONSTANTS.TRAVELLING_TIME;
+    }
   }
 
   fall(power) {

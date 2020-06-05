@@ -11,6 +11,7 @@ let holdingShift = false;
 let holdingThrow = false;
 let throwPower = 0;
 let hasBall = false;
+let isTravelling = false;
 let stamina = MAX_STAMINA;
 let playerPosX = 0;
 let playerPosY = 0;
@@ -105,8 +106,10 @@ function drawPlayers() {
 
       if (obj.playerID && obj.playerID == id) {
         hasBall = true;
+        isTravelling = obj.travelling;
       } else {
         hasBall = false;
+        isTravelling = false;
       }
     } else {
       noStroke();
@@ -148,7 +151,7 @@ function drawPlayers() {
 
 
 function handleMovement() {
-  if (!holdingThrow) {
+  if (!holdingThrow && !isTravelling) {
     if (movingUp) {
       socket.emit("updatePos", { id: id, dx: 0, dy: -playerSpeed });
     }
