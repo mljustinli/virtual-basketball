@@ -146,6 +146,7 @@ class Game {
 
   restart() {
     this.score = { "Red": 0, "Blue": 0 };
+    this.ball.ballReset();
   }
 
   playerPositions() {

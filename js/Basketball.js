@@ -84,20 +84,17 @@ class Basketball {
     this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
     this.vector_x = 0;
     this.vector_y = 0;
-<<<<<<< HEAD
 
   }
 
   ballReset(){
-  this.player=null;
+    this.player=null;
     this.vector_x = 0;
     this.vector_y = 0;
-    this.pos.x = 240;
-    this.pos.y=(320);
-=======
     this.size = CONSTANTS.BASKETBALL_SIZE;
     this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
->>>>>>> dribble
+    this.pos.x = 240;
+    this.pos.y= 320;
   }
 
   caught(player) {
