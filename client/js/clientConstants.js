@@ -16,7 +16,7 @@ const ANGLE_INDICATOR_LENGTH = 20;
 const ANGLE_INDICATOR_ARROW_LENGTH = 8;
 const MAX_THROW_POWER = 60;
 const TEAM_1 = {
-  // blue team
+  // red team
   id: 1,
   rgb: { r: 181, g: 21, b: 18 }, // 181, 21, 18
   name: "Team 1",
@@ -24,7 +24,7 @@ const TEAM_1 = {
   hoopPosition: { x: 0, y: 0 },
 };
 const TEAM_2 = {
-  // red team
+  // blue team
   id: 2,
   rgb: { r: 30, g: 96, b: 189 }, // fill(30, 96, 189);
   name: "Team 2",
