@@ -20,26 +20,17 @@ const TEAM_1 = {
   id: 1,
   rgb: { r: 181, g: 21, b: 18 }, // 181, 21, 18
   name: "Team 1",
-<<<<<<< HEAD
+
   startingPosition: { x: WIDTH / 2, y: HEIGHT / 4 },
-  hoopPosition: { x: 0, y: 0 },
-=======
-  startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 240, y: 50 },
->>>>>>> hoopin
 };
 const TEAM_2 = {
   // blue team
   id: 2,
   rgb: { r: 30, g: 96, b: 189 }, // fill(30, 96, 189);
   name: "Team 2",
-<<<<<<< HEAD
   startingPosition: { x: WIDTH / 2, y: (3 / 4.0) * HEIGHT },
-  hoopPosition: { x: 0, y: 0 },
-=======
-  startingPosition: { x: 0, y: 0 },
   hoopPosition: { x: 240, y: 590 },
->>>>>>> hoopin
 };
 
 function define(name, value) {
