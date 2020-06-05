@@ -72,6 +72,12 @@ class Basketball {
     this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
   }
 
+  ballReset(){
+    this.vector_x = 0;
+    this.vector_y = 0;
+    this.pos.x = 240;
+    this.pos.y=(320);
+  }
   caught(player) {
     // if (this.locked_team != null || this.locked_team == player.team) {
     //   console.log("changing player");
