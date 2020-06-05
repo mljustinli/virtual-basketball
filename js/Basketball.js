@@ -96,12 +96,8 @@ class Basketball {
     this.vector_x = 0;
     this.vector_y = 0;
     this.pos.x = 240;
-<<<<<<< HEAD
-    this.pos.y=(320);
-=======
     this.pos.y= 320;
     this.lastScored = null;
->>>>>>> 1bbdfe75442a1f03455055a1fd33b3935ed6f1d8
   }
 
   caught(player) {

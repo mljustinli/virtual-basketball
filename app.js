@@ -114,7 +114,7 @@ io.on("connection", function (socket) {
         }
       }
       if (thisGame) {
-        for (let socks of g.players) {
+        for (let socks of g.getPlayers()) {
           if (socketList[socks]) {
           socketList[socks].emit("restarted");
           }
