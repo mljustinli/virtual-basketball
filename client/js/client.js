@@ -45,7 +45,9 @@ socket.on("drawData", function (data) {
 });
 
 socket.on("winReceiver", function (team) {
-  this.restarter(team);
+  console.log("im happening!");
+  gameOver = true;
+  winner = team;
 });
 /**
  * Game Stuff
@@ -173,9 +175,9 @@ function drawHoops() {
   //draw hoops
   noFill();
   stroke('#222222');
-  strokeWeight(5);
-  circle(240, 5, 10);
-  circle(240, 635, 10);
+  strokeWeight(2);
+  circle(240, 52, 22);
+  circle(240, 584, 22);
 }
 
 function drawStaminaBar() {
@@ -236,14 +238,16 @@ function drawAngleIndicator(pos, angle, throwPower) {
 
 function drawScore() {
   textSize(32);
-  text("Red: " + team1Score, 5, 30);
-  text("Blue: " + team2Score, 350, 30);
+  fill(255, 0, 0);
+  text("Red: " + team1Score, 195, 30);
+  fill(0, 0, 255);
+  text("Blue: " + team2Score, 195, 630);
 }
 
 function drawWin() {
   textSize(32);
   fill(0, 102, 0);
-  text("The " + winner + " team is the winner!", 44, 120);
+  text(winner + " is the winner!", 44, 120);
   text("Press R to restart", 100, 360);
 }
 

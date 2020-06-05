@@ -67,9 +67,10 @@ class Basketball {
     // this.locked_team = null;
     this.team = 0;
     this.player = null;
+    this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
     this.vector_x = 0;
     this.vector_y = 0;
-    this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
+
   }
 
   caught(player) {

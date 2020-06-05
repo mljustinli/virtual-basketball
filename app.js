@@ -128,20 +128,20 @@ setInterval(function () {
       if (socketList[key]) {
         socketList[key].emit("drawData", newData);
         socketList[key].emit("updateScore", {
-          team1Score: game.score["Team 1"],
-          team2Score: game.score["Team 2"],
+          team1Score: game.score["Red"],
+          team2Score: game.score["Blue"],
         });
       }
     }
 
     let currScore = game.score;
-    if (currScore["Team 1"] >= 11 || currScore["Team 2"] >= 11) {
+    if (currScore["Red"] >= 11 || currScore["Blue"] >= 11) {
       var winner;
-      if (currScore["Team 1"] >= 11) {
-        winner = "Team 1";
+      if (currScore["Red"] >= 11) {
+        winner = "Red";
       }
-      if (currScore["Team 2"] >= 11) {
-        winner = "Team 2";
+      if (currScore["Blue"] >= 11) {
+        winner = "Blue";
       }
       let s;
       for (s of game.getPlayers()) {

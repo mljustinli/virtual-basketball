@@ -14,7 +14,7 @@ class Game {
     this.hoops.push(new Hoop(CONSTANTS.TEAM_2));
     this.lastTeam = CONSTANTS.TEAM_2;
     this.players = {};
-    this.score = { "Team 1": 0, "Team 2": 0 };
+    this.score = { "Red": 0, "Blue": 0 };
   }
   getPlayersArray() {
     return this.players;
@@ -88,11 +88,14 @@ class Game {
     // Ball vs. Hoop
     for (let hoop of this.hoops) {
       if (hoop.collidable.collides(this.ball.collidable)) {
-        this.ball.reset();
+        console.log("collision");
+        console.log(this.score[hoop.team]);
         this.score[hoop.team] += 1;
-        for (let player of this.players) {
-          player.reset();
-        }
+        this.ball.reset();
+
+        // for (let player of this.players) {
+        //   player.reset();
+        // }
       }
     }
   }
@@ -121,11 +124,11 @@ class Game {
   score(player, points) {
     let scoring = this.players[player.id].team;
     if (scoring == TEAM_1) {
-      let newScore = this.score["Team 1"] + points;
-      this.score = { "Team 1": newScore, "Team 2": this.score["Team 2"] };
+      let newScore = this.score["Red"] + points;
+      this.score = { "Red": newScore, "Blue": this.score["Blue"] };
     } else if (scoring == TEAM_2) {
-      let newScore = this.score["Team 2"] + points;
-      this.score = { "Team 1": this.score["Team 1"], "Team 2": newScore };
+      let newScore = this.score["Blue"] + points;
+      this.score = { "Red": this.score["Red"], "Blue": newScore };
     }
   }
 
@@ -142,7 +145,7 @@ class Game {
   close() {}
 
   restart() {
-    this.score = { "Team 1": 0, "Team 2": 0 };
+    this.score = { "Red": 0, "Blue": 0 };
   }
 
   playerPositions() {
