@@ -21,7 +21,7 @@ const TEAM_1 = {
   rgb: { r: 181, g: 21, b: 18 }, // 181, 21, 18
   name: "Team 1",
   startingPosition: { x: 0, y: 0 },
-  hoopPosition: { x: 0, y: 0 },
+  hoopPosition: { x: 240, y: 5 },
 };
 const TEAM_2 = {
   // red team
@@ -29,7 +29,7 @@ const TEAM_2 = {
   rgb: { r: 30, g: 96, b: 189 }, // fill(30, 96, 189);
   name: "Team 2",
   startingPosition: { x: 0, y: 0 },
-  hoopPosition: { x: 0, y: 0 },
+  hoopPosition: { x: 240, y: 635 },
 };
 
 function define(name, value) {
