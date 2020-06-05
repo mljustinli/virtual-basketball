@@ -174,16 +174,11 @@ function handleMovement() {
 function drawHoops() {
   //draw hoops
   noFill();
-  stroke('#222222');
-<<<<<<< HEAD
+  stroke(255, 0, 0);
   strokeWeight(2);
   circle(240, 52, 22);
+  stroke(0, 0, 255);
   circle(240, 584, 22);
-=======
-  strokeWeight(5);
-  circle(240, 50, 10);
-  circle(240, 590, 10);
->>>>>>> hoopityscoop
 }
 
 function drawStaminaBar() {
@@ -253,7 +248,7 @@ function drawScore() {
 function drawWin() {
   textSize(32);
   fill(0, 102, 0);
-  text(winner + " is the winner!", 44, 120);
+  text(winner + " is the winner!", 100, 120);
   text("Press R to restart", 100, 360);
 }
 

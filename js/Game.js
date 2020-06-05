@@ -88,23 +88,9 @@ class Game {
     // Ball vs. Hoop
    for (let hoop of this.hoops) {
       if (hoop.collidable.collides(this.ball.collidable)) {
-<<<<<<< HEAD
-        console.log("collision");
-        console.log(this.score[hoop.team]);
-        this.score[hoop.team] += 1;
-        this.ball.reset();
-
-        // for (let player of this.players) {
-        //   player.reset();
-        // }
-=======
         this.ball.ballReset();
         this.score[hoop.team] += 1;
-<<<<<<< HEAD
-=======
 
->>>>>>> hoopityscoop
->>>>>>> master
       }
     }
   }

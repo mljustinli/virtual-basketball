@@ -71,16 +71,14 @@ class Basketball {
     this.vector_x = 0;
     this.vector_y = 0;
 
-<<<<<<< HEAD
-=======
   }
 
   ballReset(){
+  this.player=null;
     this.vector_x = 0;
     this.vector_y = 0;
     this.pos.x = 240;
     this.pos.y=(320);
->>>>>>> hoopityscoop
   }
 
   caught(player) {
