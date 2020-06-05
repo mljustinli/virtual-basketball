@@ -13,6 +13,9 @@ class Basketball {
     this.rgb = { r: 255, g: 111, b: 0 }; // 255, 111, 0
     // this.locked_team = null;
     this.collidable = new Circle(this.pos.x, this.pos.y, this.size);
+    this.dribble_factor = 1;
+    this.isDribbling = false;
+    this.isFalling = true;
   }
 
   updateCollidable() {
@@ -61,6 +64,17 @@ class Basketball {
         this.updateCollidable();
       }
     }
+    // update size if dribbling
+    if (this.isDribbling) {
+      if(this.isFalling) {
+        this.fall(this.dribble_factor);
+      }
+      else {
+        this.isDribbling = !this.rise(
+          this.dribble_factor, CONSTANTS.BASKETBALL_SIZE);
+      }
+      console.log(this.size);
+    }
   }
 
   reset() {
@@ -70,6 +84,7 @@ class Basketball {
     this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
     this.vector_x = 0;
     this.vector_y = 0;
+<<<<<<< HEAD
 
   }
 
@@ -79,6 +94,10 @@ class Basketball {
     this.vector_y = 0;
     this.pos.x = 240;
     this.pos.y=(320);
+=======
+    this.size = CONSTANTS.BASKETBALL_SIZE;
+    this.pos = CONSTANTS.BASKETBALL_STARTING_POSITION;
+>>>>>>> dribble
   }
 
   caught(player) {
@@ -93,12 +112,12 @@ class Basketball {
     //   this.vector_y = 0;
     // }
 
-    if (this.player == null) {
-      this.player = player;
-      this.team = player.team.id;
-      this.vector_x = 0;
-      this.vector_y = 0;
-    }
+    this.isDribbling = false;
+    this.size = CONSTANTS.BASKETBALL_SIZE;
+    this.player = player;
+    this.team = player.team.id;
+    this.vector_x = 0;
+    this.vector_y = 0;
   }
 
   draw() {
@@ -113,10 +132,43 @@ class Basketball {
   }
 
   throw(angle, Power) {
+    this.isDribbling = false;
+    this.size = CONSTANTS.BASKETBALL_SIZE;
     this.player = null;
     // New - Old
     this.vector_x = Math.cos(angle) * Power;
     this.vector_y = Math.sin(angle) * Power;
+  }
+
+  dribble() {
+    this.isDribbling = true;
+  }
+
+  fall(power) {
+    let hit_floor = false;
+    let new_size = this.size - power;
+    // hit bottom of court
+    if (new_size < CONSTANTS.BALL_FLOOR_SIZE) {
+      hit_floor = true;
+      this.isFalling = false;
+      new_size = CONSTANTS.BALL_FLOOR_SIZE;
+    }
+    this.size = new_size;
+    return hit_floor;
+  }
+
+  //size of ball represents height (sort of)
+  rise(power, height) {
+    let reached_height = false;
+    let new_size = this.size + power;
+    // end dribble at top of dribble
+    if (new_size > height) {
+      reached_height = true;
+      this.isFalling = true;
+      new_size = height;
+    }
+    this.size = new_size;
+    return reached_height;
   }
 }
 

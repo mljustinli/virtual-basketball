@@ -79,18 +79,25 @@ io.on("connection", function (socket) {
   socket.on("catch", function (data) {
     currGame = games[socket.gameID];
     player = currGame.players[data.id];
-    if (currGame.ball.player==null) {
-      currGame.catchEventChecker(player);
-    }
+    currGame.catchCheck(player);
   });
 
   socket.on("throw", function (data) {
-    console.log("power " + data.pow);
     currGame = games[socket.gameID];
     baller = currGame.ball.player;
     // if player in possession throw ball
-    if (baller.id == data.id) {
+    if ((baller!=null)&&(baller.id == data.id)) {
+      console.log("power " + data.pow);
       currGame.ball.throw(baller.angle, data.pow);
+    }
+  });
+
+  socket.on("dribble", function (data) {
+    currGame = games[socket.gameID];
+    baller = currGame.ball.player;
+    if ((baller!=null)&&(baller.id == data.id)) {
+      console.log("dribble");
+      currGame.ball.dribble();
     }
   });
 

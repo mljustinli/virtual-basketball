@@ -274,6 +274,9 @@ function keyPressed() {
     socket.emit("restartGame", this.id);
     this.draw();
   }
+  if (keyCode == 32) {
+    socket.emit("dribble", {id: id});
+  }
 }
 
 function keyReleased() {
