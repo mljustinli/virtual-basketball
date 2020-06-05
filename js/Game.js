@@ -90,9 +90,6 @@ class Game {
       if (hoop.collidable.collides(this.ball.collidable)) {
         this.ball.reset();
         this.score[hoop.team] += 1;
-        for (let player of this.players) {
-          player.reset();
-        }
       }
     }
   }
