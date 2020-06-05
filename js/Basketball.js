@@ -16,13 +16,10 @@ class Basketball {
     this.dribble_factor = 1;
     this.isDribbling = false;
     this.isFalling = true;
-<<<<<<< HEAD
-=======
     this.distToHoopWhenThrown = {};
     this.distToHoopWhenThrown["Red"] = 0;
     this.distToHoopWhenThrown["Blue"] = 0;
     this.lastScored = null;
->>>>>>> 1bbdfe75442a1f03455055a1fd33b3935ed6f1d8
   }
 
   updateCollidable() {
