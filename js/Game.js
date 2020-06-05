@@ -89,7 +89,8 @@ class Game {
    for (let hoop of this.hoops) {
       if (hoop.collidable.collides(this.ball.collidable)) {
         this.ball.ballReset();
-        this.score[hoop.team === "Red" ? "Blue" : "Red"] += 1;
+        let points = this.ball.distToHoopWhenThrown[hoop.team] >= CONSTANTS.FREE_THROW_ZONE_WIDTH / 2 ? 3 : 2;
+        this.score[hoop.team === "Red" ? "Blue" : "Red"] += points;
 
       }
     }
