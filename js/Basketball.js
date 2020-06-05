@@ -21,6 +21,7 @@ class Basketball {
   }
 
   updatePosition(dx, dy) {
+
     this.pos.x += dx;
     this.pos.y += dy;
     this.updateCollidable();
@@ -30,10 +31,26 @@ class Basketball {
     // Update position
     // Case after being thrown before being picked up
     if (this.player == null) {
-      this.pos.x = this.pos.x + this.vector_x;
-      this.pos.y = this.pos.y + this.vector_y;
-      this.vector_x = this.vector_x * this.acceleration_factor;
-      this.vector_y = this.vector_y * this.acceleration_factor;
+      let dx = this.vector_x;
+      let dy = this.vector_y;
+      if (this.pos.x + dx + this.size / 2 > CONSTANTS.WIDTH - CONSTANTS.COURT_PADDING) {
+        console.log("flip");
+        dx = -Math.abs(dx);
+      }
+      if (this.pos.x + dx - this.size / 2 < CONSTANTS.COURT_PADDING) {
+        dx = Math.abs(dx);
+      }
+
+      if (this.pos.y + dy + this.size / 2 > CONSTANTS.HEIGHT - CONSTANTS.COURT_PADDING) {
+        dy  = -Math.abs(dy);
+      }
+      if (this.pos.y + dy - this.size / 2 < CONSTANTS.COURT_PADDING) {
+        dy = Math.abs(dy);
+      }
+      this.pos.x = this.pos.x + dx;
+      this.pos.y = this.pos.y + dy;
+      this.vector_x = dx * this.acceleration_factor;
+      this.vector_y = dy * this.acceleration_factor;
       this.updateCollidable();
     }
     // Case of traveling with the player

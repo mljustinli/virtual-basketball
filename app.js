@@ -145,7 +145,9 @@ setInterval(function () {
       }
       let s;
       for (s of game.getPlayers()) {
-        socketList[s].emit("winReceiver", winner);
+        if (socketList[s]) {
+          socketList[s].emit("winReceiver", winner);
+        }
       }
     }
   }
