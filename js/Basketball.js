@@ -16,6 +16,13 @@ class Basketball {
     this.dribble_factor = 1;
     this.isDribbling = false;
     this.isFalling = true;
+<<<<<<< HEAD
+=======
+    this.distToHoopWhenThrown = {};
+    this.distToHoopWhenThrown["Red"] = 0;
+    this.distToHoopWhenThrown["Blue"] = 0;
+    this.lastScored = null;
+>>>>>>> 1bbdfe75442a1f03455055a1fd33b3935ed6f1d8
   }
 
   updateCollidable() {
@@ -92,7 +99,12 @@ class Basketball {
     this.vector_x = 0;
     this.vector_y = 0;
     this.pos.x = 240;
+<<<<<<< HEAD
     this.pos.y=(320);
+=======
+    this.pos.y= 320;
+    this.lastScored = null;
+>>>>>>> 1bbdfe75442a1f03455055a1fd33b3935ed6f1d8
   }
 
   caught(player) {
@@ -107,12 +119,16 @@ class Basketball {
     //   this.vector_y = 0;
     // }
 
-    this.isDribbling = false;
-    this.size = CONSTANTS.BASKETBALL_SIZE;
-    this.player = player;
-    this.team = player.team.id;
-    this.vector_x = 0;
-    this.vector_y = 0;
+    console.log("last scored was: " + this.lastScored);
+    if (this.lastScored == null || !(this.lastScored === player.team.name)) {
+      this.isDribbling = false;
+      this.size = CONSTANTS.BASKETBALL_SIZE;
+      this.player = player;
+      this.team = player.team.id;
+      this.vector_x = 0;
+      this.vector_y = 0;
+      this.lastScored = null;
+    }
   }
 
   draw() {

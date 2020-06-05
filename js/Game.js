@@ -91,7 +91,7 @@ class Game {
         this.ball.ballReset();
         let points = this.ball.distToHoopWhenThrown[hoop.team] >= CONSTANTS.FREE_THROW_ZONE_WIDTH / 2 ? 3 : 2;
         this.score[hoop.team === "Red" ? "Blue" : "Red"] += points;
-
+        this.ball.lastScored = hoop.team === "Red" ? "Blue" : "Red";
       }
     }
   }
