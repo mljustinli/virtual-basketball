@@ -175,9 +175,15 @@ function drawHoops() {
   //draw hoops
   noFill();
   stroke('#222222');
+<<<<<<< HEAD
   strokeWeight(2);
   circle(240, 52, 22);
   circle(240, 584, 22);
+=======
+  strokeWeight(5);
+  circle(240, 50, 10);
+  circle(240, 590, 10);
+>>>>>>> hoopityscoop
 }
 
 function drawStaminaBar() {
